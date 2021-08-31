@@ -4,3 +4,8 @@ This is my Neovim configuration for working on a variety of things. I use it for
 
 ## Screenshots
 
+![Start Screen](screenshots/start.png)
+
+![Couple of splits open](screenshots/busy.png)
+
+![Searching for files](screenshots/telescope.png)
