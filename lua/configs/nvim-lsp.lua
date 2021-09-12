@@ -98,9 +98,6 @@ local on_attach = function(client, bufnr)
   elseif client.resolved_capabilities.document_range_formatting then
     nmap('<space>lF', vim.lsp.buf.range_formatting, opts)
   end
-
-  -- Format on save
-
 end
 
 
