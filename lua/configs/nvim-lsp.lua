@@ -271,3 +271,6 @@ require'lspconfig'.solargraph.setup {on_attach = on_attach}
 
 -- LaTeX/BibTeX
 require'lspconfig'.texlab.setup {on_attach = on_attach}
+
+-- Dart/Flutter
+require'lspconfig'.dartls.setup {on_attach = on_attach}

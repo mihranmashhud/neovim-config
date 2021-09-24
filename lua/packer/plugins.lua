@@ -56,6 +56,10 @@ return require('packer').startup(function(use)
   use 'nvim-telescope/telescope-dap.nvim'         -- Telescope DAP plugin
   use 'mfussenegger/nvim-dap-python'              -- Python DAP
   use 'theHamsta/nvim-dap-virtual-text'           -- DAP virtual text
+  use {
+    'chipsenkbeil/distant.nvim',
+    config = function() require'configs.distant' end
+  }
 
   -- Language specific
   use {'vim-pandoc/vim-pandoc', ft = {'pandoc'}, opt = true}       -- Pandoc integration
