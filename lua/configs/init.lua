@@ -1,7 +1,7 @@
+require'configs.iris'
 require'configs.nvim-lsp'
 require'configs.saga'
 require'configs.completion'
-require'configs.headerguard'
 require'configs.nvim-tree'
 require'configs.kommentary'
 require'configs.vim-svelte'

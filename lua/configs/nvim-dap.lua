@@ -1,5 +1,5 @@
 -- local dap = require'dap'
-vim.g.dap_virtual_text = true
+-- vim.g.dap_virtual_text = true
 
 -- dap.adapters.node2 = {
 --   type = 'executable',

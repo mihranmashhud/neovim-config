@@ -7,6 +7,7 @@ vim.g.md_args='--filter pandoc-citeproc -V --listings'
 
 autocmd('BufNewfile,BufRead *.Rmd set filetype=markdown')
 autocmd('BufNewfile,BufRead *.md set filetype=markdown')
+autocmd('BufNewfile,BufRead *.md set spell')
 
 -- Init writing plugins
 vim.fn['pencil#init']()

@@ -1,7 +1,6 @@
 local map_utils = require'utils.map'
-local imap = map_utils.imap
 local nmap = map_utils.nmap
-local smap = map_utils.smap
+local vmap = map_utils.vmap
 local inoremap = map_utils.inoremap
 local nnoremap = map_utils.nnoremap
 local vnoremap = map_utils.vnoremap
@@ -52,14 +51,16 @@ inoremap('.', '.<c-g>u')
 inoremap('!', '!<c-g>u')
 inoremap('?', '?<c-g>u')
 
--- Completion with Tab
-imap('<Tab>', 'v:lua.tab_complete()', { expr = true })
-imap('<S-Tab>', 'v:lua.s_tab_complete()', { expr = true })
-smap('<Tab>', 'v:lua.tab_complete()', { expr = true })
-smap('<S-Tab>', 'v:lua.s_tab_complete()', { expr = true })
-
 -- Word count
 nnoremap('<F3>', ':w !detex \\| wc -w<CR>')
+
+-- Increment/Decrement
+nmap('<C-a>', '<Plug>(dial-increment)')
+nmap('<C-x>', '<Plug>(dial-decrement)')
+vmap('<C-a>', '<Plug>(dial-increment)')
+vmap('<C-x>', '<Plug>(dial-decrement)')
+vmap('g<C-a>', '<Plug>(dial-increment-additional)')
+vmap('g<C-x>', '<Plug>(dial-decrement-additional)')
 
 -- WhichKey/Leader:
 vim.g.mapleader = ' '

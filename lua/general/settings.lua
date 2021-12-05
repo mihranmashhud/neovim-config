@@ -23,7 +23,7 @@ vim.opt.modelines = 1                                                 -- For cus
 vim.opt.autoread = true                                               -- Autoread file changes
 vim.opt.fillchars = { eob = ' ' }                                     -- Transparent end of buffer chars
 vim.opt.scrolloff = 8                                                 -- Keep this many lines above and below cursor
-vim.opt.completeopt = { 'menuone', 'noinsert', 'noselect' }           -- Better completion experience
+vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }               -- Better completion experience
 vim.opt.guifont = 'InputMono Nerd Font:h14'                           -- GUI Font
 vim.opt.linespace = 1                                                 --
 vim.opt.modelines = 1                                                 --
@@ -43,5 +43,6 @@ vim.opt.expandtab = true                                              -- Tabs ar
 vim.opt.autoindent = true                                             -- Indent always
 vim.opt.undofile = true                                               -- Track those changes!
 vim.opt.spellfile = "./en.utf-8.add"                                  -- Local Spellfile additions
+vim.opt.spelllang = { 'en_us' }                                       -- Spell language
 
 vim.cmd("filetype plugin on") -- For filetype plugins of course

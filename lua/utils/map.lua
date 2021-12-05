@@ -200,6 +200,13 @@ end
 -- @tparam string command The Vim command to bind to the key sequence (eg: `:source $MYVIMRC<CR>`)
 -- @tparam table options See `https://neovim.io/doc/user/api.html#nvim_set_keymap()` (eg: `{ noremap = true }`)
 -- @tparam[opt] string name A helpful display name
+function map.vmap(keyseq, command, options, name)
+  return map.bind_command('v', keyseq, command, options or {}, name)
+end
+-- @tparam string keys The keys to press (eg: `<leader>feR`)
+-- @tparam string command The Vim command to bind to the key sequence (eg: `:source $MYVIMRC<CR>`)
+-- @tparam table options See `https://neovim.io/doc/user/api.html#nvim_set_keymap()` (eg: `{ noremap = true }`)
+-- @tparam[opt] string name A helpful display name
 function map.smap(keyseq, command, options, name)
   return map.bind_command('s', keyseq, command, options or {}, name)
 end

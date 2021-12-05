@@ -1,6 +1,6 @@
 local gl = require('galaxyline')
 --local colors = require('galaxyline.theme').default
-local colors = require('utils.theming').hex_palette
+local colors = require('iris.palette').get()
 local condition = require('galaxyline.condition')
 --local vcs = require('galaxyline.provider_vcs')
 --local fileinfo = require('galaxyline.provider_fileinfo')
@@ -16,7 +16,7 @@ vim.fn.statusline_bg = function ()
   vim.cmd('hi StatusLine guibg='..colors.bg)
 end
 autocmd('ColorScheme * :lua vim.fn.statusline_bg()') -- Force the StatusLine bg
-autocmd('ColorScheme * :lua vim.fn.statusline_bg()') -- Force the StatusLine bg
+vim.fn.statusline_bg()
 
 local mode_text = {
   n      = 'NORMAL',
@@ -43,17 +43,17 @@ local mode_text = {
 local mode_color = {
   n      = colors.blue,
   i      = colors.green,
-  v      = colors.purple,
-  [''] = colors.purple,
-  V      = colors.purple,
+  v      = colors.magenta,
+  [''] = colors.magenta,
+  V      = colors.magenta,
   c      = colors.yellow,
   no     = colors.blue,
   s      = colors.red,
   S      = colors.red,
   [''] = colors.red,
   ic     = colors.green,
-  R      = colors.lightred,
-  Rv     = colors.lightred,
+  R      = colors.brown,
+  Rv     = colors.brown,
   cv     = colors.yellow,
   ce     = colors.yellow,
   r      = colors.cyan,
@@ -71,31 +71,16 @@ table.insert(gls.left, {
   ViMode = {
     provider = function()
       -- auto change color according the vim mode
-      vim.api.nvim_command('hi GalaxyViMode guibg='..mode_color[vim.fn.mode()])
-      return '  '..mode_text[vim.fn.mode()]..' '
+      local mode = vim.fn.mode() -- use this as it provides sane values
+      local c = mode_color[mode]
+      vim.api.nvim_command('hi GalaxyViMode guibg='..c)
+      return '  '..mode_text[mode]..' '
     end,
     separator = ' ',
     separator_highlight = {'NONE',colors.bg},
     highlight = {colors.bg,colors.bg,'bold'},
   },
 })
-
---table.insert(gls.left, {
---  ShowLspClient = {
---    provider = 'GetLspClient',
---    condition = function ()
---      local tbl = {['dashboard'] = true,['']=true}
---      if tbl[vim.bo.filetype] then
---        return false
---      end
---      return true
---    end,
---    icon = '  ',
---    separator = ' ',
---    separator_highlight = {colors.bg, colors.bg},
---    highlight = {colors.blue,colors.bg,'bold'}
---  }
---})
 
 table.insert(gls.left, {
   GitIcon = {
@@ -146,7 +131,7 @@ table.insert(gls.left, {
 table.insert(gls.left, {
   DiagnosticError = {
     provider = 'DiagnosticError',
-    icon = '  ',
+    icon = '  ',
     highlight = {colors.red,colors.bg}
   }
 })
@@ -154,7 +139,7 @@ table.insert(gls.left, {
 table.insert(gls.left, {
   DiagnosticWarn = {
     provider = 'DiagnosticWarn',
-    icon = '  ',
+    icon = '  ',
     highlight = {colors.yellow,colors.bg},
   }
 })
@@ -162,7 +147,7 @@ table.insert(gls.left, {
 table.insert(gls.left, {
   DiagnosticHint = {
     provider = 'DiagnosticHint',
-    icon = '  ',
+    icon = '  ',
     highlight = {colors.green,colors.bg},
   }
 })
@@ -170,7 +155,7 @@ table.insert(gls.left, {
 table.insert(gls.left, {
   DiagnosticInfo = {
     provider = 'DiagnosticInfo',
-    icon = '  ',
+    icon = '  ',
     highlight = {colors.blue,colors.bg},
   }
 })
@@ -236,8 +221,8 @@ table.insert(gls.right, {
 table.insert(gls.right, {
   PerCentBar = {
     provider = function ()
-      local current_line = vim.fn.line('.')
-      local total_lines = vim.fn.line('$')
+      local current_line = vim.fn.line('.') - 1
+      local total_lines = vim.fn.line('$') - 1
       local bar_chars = {
         '█',
         '▇',
@@ -249,7 +234,13 @@ table.insert(gls.right, {
         '▁',
         ' ',
       }
-      local result = math.floor((current_line/total_lines)*(#bar_chars)+1)
+      local frac
+      if total_lines == 0 then
+        frac = 0.5
+      else
+        frac = current_line/total_lines
+      end
+      local result = math.floor((frac)*(#bar_chars)+1)
       return bar_chars[result] or ' '
     end,
     highlight = {colors.bg, colors.orange}
