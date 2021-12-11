@@ -5,14 +5,6 @@ map._leader_info = {}
 local ok, wk = pcall(require, 'which-key') -- prevent breaking if which key is not installed
 if not ok then wk = nil end
 
-if wk then
-  wk.setup{
-    window = {
-      border = "single",
-    },
-  }
-end
-
 --- Greedy pattern matching on multiple patterns
 local function seqchoice(str, patternlist)
   local substr = str

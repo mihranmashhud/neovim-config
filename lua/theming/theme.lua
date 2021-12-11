@@ -1,7 +1,7 @@
 vim.g.tokyonight_transparent_background = 1
 vim.g.tokyonight_style = 'night'
 
-vim.api.nvim_exec([[
+vim.cmd[[
 colorscheme tokyonight
 highlight VertSplit ctermbg=None guibg=None
 highlight EndOfBuffer ctermbg=None guibg=None
@@ -21,5 +21,4 @@ highlight GitGutterDeleteInvisible ctermbg=None guibg=None
 
 " Pmenu
 highlight Pmenu ctermbg=None guibg=None
-]], false)
-
+]]

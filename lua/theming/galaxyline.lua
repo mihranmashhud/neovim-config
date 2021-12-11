@@ -1,6 +1,54 @@
 local gl = require('galaxyline')
 --local colors = require('galaxyline.theme').default
+require'configs.iris' -- colors must be set.
 local colors = require('iris.palette').get()
+if colors == nil then
+  colors = {
+    add = "#61794F",
+    base00 = "#1a1b26",
+    base01 = "#232433",
+    base02 = "#232433",
+    base03 = "#32344a",
+    base04 = "#32344a",
+    base05 = "#a9b1d6",
+    base06 = "#a9b1d6",
+    base07 = "#a9b1d6",
+    base08 = "#f7768e",
+    base09 = "#ff9e64",
+    base0A = "#e0af68",
+    base0B = "#9ece6a",
+    base0C = "#ad8ee6",
+    base0D = "#9ece6a",
+    base0E = "#f7768e",
+    base0F = "#a9b1d6",
+    bg = "#1a1b26",
+    black = "#1a1b26",
+    blue = "#9ece6a",
+    brown = "#a9b1d6",
+    change = "#A78558",
+    comments = "#32344a",
+    cursorline = "#21232F",
+    cyan = "#ad8ee6",
+    delete = "#8D4D61",
+    error = "#f7768e",
+    fg = "#a9b1d6",
+    green = "#9ece6a",
+    grey = "#232433",
+    gutter = "#232433",
+    hint = "#ad8ee6",
+    info = "#9ece6a",
+    line_base = "#232433",
+    line_dark = "#161720",
+    line_lite = "#2D2F3F",
+    magenta = "#f7768e",
+    none = "NONE",
+    orange = "#ff9e64",
+    red = "#f7768e",
+    warn = "#e0af68",
+    white = "#a9b1d6",
+    yellow = "#e0af68"
+  }
+end
 local condition = require('galaxyline.condition')
 --local vcs = require('galaxyline.provider_vcs')
 --local fileinfo = require('galaxyline.provider_fileinfo')
@@ -128,9 +176,17 @@ table.insert(gls.left, {
     highlight = {colors.red,colors.bg},
   }
 })
+
+local function lsp_diagnostic_count(severity)
+  local count = vim.tbl_count(vim.diagnostic.get(0,{severity = vim.diagnostic.severity[severity]}))
+  if count ~= 0 then return count .. ' ' else return '' end
+end
+
 table.insert(gls.left, {
   DiagnosticError = {
-    provider = 'DiagnosticError',
+    provider = function()
+      return lsp_diagnostic_count("ERROR")
+    end,
     icon = '  ',
     highlight = {colors.red,colors.bg}
   }
@@ -138,7 +194,9 @@ table.insert(gls.left, {
 
 table.insert(gls.left, {
   DiagnosticWarn = {
-    provider = 'DiagnosticWarn',
+    provider = function()
+      return lsp_diagnostic_count("WARN")
+    end,
     icon = '  ',
     highlight = {colors.yellow,colors.bg},
   }
@@ -146,7 +204,9 @@ table.insert(gls.left, {
 
 table.insert(gls.left, {
   DiagnosticHint = {
-    provider = 'DiagnosticHint',
+    provider = function()
+      return lsp_diagnostic_count("HINT")
+    end,
     icon = '  ',
     highlight = {colors.green,colors.bg},
   }
@@ -154,7 +214,9 @@ table.insert(gls.left, {
 
 table.insert(gls.left, {
   DiagnosticInfo = {
-    provider = 'DiagnosticInfo',
+    provider = function()
+      return lsp_diagnostic_count("INFO")
+    end,
     icon = '  ',
     highlight = {colors.blue,colors.bg},
   }
