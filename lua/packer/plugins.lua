@@ -217,10 +217,6 @@ return require('packer').startup(function(use)
   use {
     'iamcco/markdown-preview.nvim',
     run = 'cd app && npm install',
-    setup = function()
-      vim.g.mkdp_filetyes = { "markdown", "rmd" }
-    end,
-    ft = { 'markdown', 'rmd' }
   }                                 -- Preview markdown while it is written ~ Replace with pandoc
 
   --- Browser
