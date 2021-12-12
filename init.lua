@@ -1,3 +1,5 @@
+-- Debug
+require'utils.debug'
 -- Mappings
 require'keys.mappings'
 -- Settings

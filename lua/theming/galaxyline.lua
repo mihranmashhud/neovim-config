@@ -2,7 +2,7 @@ local gl = require('galaxyline')
 --local colors = require('galaxyline.theme').default
 require'configs.iris' -- colors must be set.
 local colors = require('iris.palette').get()
-if colors == nil then
+if colors == nil then -- A hack to keep things working until I create my own palette generator
   colors = {
     add = "#61794F",
     base00 = "#1a1b26",

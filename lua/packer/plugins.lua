@@ -102,7 +102,6 @@ require'packer'.startup {
       'saadparwaiz1/cmp_luasnip',
       requires = {{'hrsh7th/nvim-cmp'}, {'L3MON4D3/LuaSnip'}},
     }
-    use 'neovim/nvim-lspconfig'                     -- Neovim native LSP
     use {
       'folke/trouble.nvim',
       config = function() require'configs.trouble' end,
@@ -223,7 +222,6 @@ require'packer'.startup {
     use 'yuttie/comfortable-motion.vim'     -- Smooth scrolling
     use {
       'b3nj5m1n/kommentary',
-      opt = true,
       config = configs'kommentary'
     } -- Comment out text
     use 'norcalli/nvim-colorizer.lua'       -- Fast color preview
@@ -261,6 +259,7 @@ require'packer'.startup {
       'glepnir/galaxyline.nvim',
       branch = 'main',
       requires = {'kyazdani42/nvim-web-devicons'},
+      config = 'require"theming.galaxyline"',
     } -- Statusline
     use {
       'seblj/nvim-tabline',
@@ -285,6 +284,10 @@ require'packer'.startup {
       end,
       ft = { 'markdown', 'rmd' }
     }                                 -- Preview markdown while it is written ~ Replace with pandoc
+    use {
+      'rcarriga/nvim-notify',
+      config = configs'notify',
+    }
 
     --- Browser
     use {'raghur/vim-ghost', run = ':GhostInstall'} -- Send text between browser and nvim.
