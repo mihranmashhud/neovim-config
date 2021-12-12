@@ -21,9 +21,6 @@ dashboard.section.buttons.val = {
    dashboard.button("SPC s h", " Search history", ":Telescope search_history<CR>"),
 }
 
-local handle = io.popen('fortune')
-local fortune = handle:read("*a")
-handle:close()
-dashboard.section.footer.val = fortune
+dashboard.section.footer.val = 'Code at the speed of thought.'
 
 alpha.setup(dashboard.opts)
