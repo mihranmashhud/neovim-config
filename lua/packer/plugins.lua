@@ -35,7 +35,7 @@ require'packer'.startup {
       requires = {
         {'nvim-lua/popup.nvim'},
         {'nvim-lua/plenary.nvim'},
-        {'nvim-telescope-fzy-native.nvim'},
+        {'nvim-telescope/telescope-fzy-native.nvim'},
       },
       config = configs'telescope',
     } -- Telescope
@@ -260,11 +260,16 @@ require'packer'.startup {
       requires = {'kyazdani42/nvim-web-devicons'},
       config = 'require"theming.galaxyline"',
     } -- Statusline
+    -- use {
+    --   'seblj/nvim-tabline',
+    --   requires = {'kyazdani42/nvim-web-devicons'},
+    --   config = configs'tabline',
+    -- } -- Tabline
     use {
-      'seblj/nvim-tabline',
-      requires = {'kyazdani42/nvim-web-devicons'},
+      'rafcamlet/tabline-framework.nvim',
+      requires = 'kyazdani42/nvim-web-devicons',
       config = configs'tabline',
-    } -- Tabline
+    }
     use {
       'ngscheurich/iris.nvim',
     }
