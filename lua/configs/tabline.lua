@@ -16,11 +16,14 @@ local render = function (f)
   f.add' '
   f.make_tabs(function (info)
     local colors = info.current and active or inactive
-    f.add {
-      ' '..info.index..' ',
-      fg = colors.index,
-      bg = colors.bg_1,
-    }
+
+    if info.index then
+      f.add {
+        ' '..info.index..' ',
+        fg = colors.index,
+        bg = colors.bg_1,
+      }
+    end
     f.set_colors{ fg = colors.fg, bg = colors.bg_2 }
     if info.filename then
       f.add{
@@ -28,7 +31,7 @@ local render = function (f)
         fg = info.current and f.icon_color(info.filename) or nil
       }
       f.add(info.filename)
-      f.add(info.modified and ' ')
+      f.add(info.modified and '+')
     else
       f.add(info.modified and '[+]' or '[-]')
     end

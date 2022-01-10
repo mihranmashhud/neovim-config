@@ -199,12 +199,12 @@ require'packer'.startup {
       ft = prose_fts,
       run = prose_run,
     } -- Spell check additions + Thesaurus/dictionary completion
-    use {
-      'joom/latex-unicoder.vim',
-      ft = prose_fts,
-      run = prose_run,
-      config = configs'latex-unicoder',
-    } -- Convert latex command to unicode
+    -- use {
+    --   'joom/latex-unicoder.vim',
+    --   ft = prose_fts,
+    --   run = prose_run,
+    --   config = configs'latex-unicoder',
+    -- } -- Convert latex command to unicode
     use {
       'dhruvasagar/vim-table-mode',
       ft = prose_fts,
@@ -305,6 +305,7 @@ require'packer'.startup {
     --- Workarounds
     use {'antoinemadec/FixCursorHold.nvim'} -- Fix Cursor Hold Issue (https://github.com/neovim/neovim/issues/12587)
     use {'vim-scripts/dbext.vim'} -- Allow for connecting to databases
+    use '~/Documents/Coding/palette-gen.nvim' -- Testing my plugin
 
     -- Bootstapping
     if packer_bootstrap then
