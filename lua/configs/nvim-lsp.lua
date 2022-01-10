@@ -201,6 +201,11 @@ require'lspconfig'.dartls.setup {
   capabilities = capabilities,
 }
 
+-- Java
+require'lspconfig'.java_language_server.setup{
+  on_attach = on_attach,
+  capabilities = capabilities,
+}
 
 -- Diagnostics
 

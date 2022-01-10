@@ -16,11 +16,14 @@ local render = function (f)
   f.add' '
   f.make_tabs(function (info)
     local colors = info.current and active or inactive
-    f.add {
-      ' '..info.index..' ',
-      fg = colors.index,
-      bg = colors.bg_1,
-    }
+
+    if info.index then
+      f.add {
+        ' '..info.index..' ',
+        fg = colors.index,
+        bg = colors.bg_1,
+      }
+    end
     f.set_colors{ fg = colors.fg, bg = colors.bg_2 }
     if type(info.filename) == 'string' then
       local ok, val = pcall(f.icon_color, info.filename)
@@ -33,7 +36,7 @@ local render = function (f)
         f.add' '
       end
       f.add(info.filename)
-      f.add(info.modified and ' ')
+      f.add(info.modified and '+')
     else
       f.add(info.modified and '[+]' or '[-]')
     end

@@ -1,6 +1,8 @@
-local gl = require('galaxyline')
+local ok, gl = pcall(require, 'galaxyline')
 --local colors = require('galaxyline.theme').default
-require'configs.iris' -- colors must be set.
+if not ok then return end
+local ok = pcall(require, 'configs.iris') -- colors must be set.
+if not ok then return end
 local colors = require('iris.palette').get()
 if colors == nil then -- A hack to keep things working until I create my own palette generator
   colors = {
