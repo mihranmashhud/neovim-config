@@ -22,11 +22,16 @@ local render = function (f)
       bg = colors.bg_1,
     }
     f.set_colors{ fg = colors.fg, bg = colors.bg_2 }
-    if info.filename then
-      f.add{
-        ' '..f.icon(info.filename)..' ',
-        fg = info.current and f.icon_color(info.filename) or nil
-      }
+    if type(info.filename) == 'string' then
+      local ok, val = pcall(f.icon_color, info.filename)
+      if ok then
+        f.add' '
+        f.add{
+          f.icon(info.filename),
+          fg = info.current and val or nil
+        }
+        f.add' '
+      end
       f.add(info.filename)
       f.add(info.modified and ' ')
     else
