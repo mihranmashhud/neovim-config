@@ -147,7 +147,7 @@ require'packer'.startup {
 
     --- Language specific
     use {'vim-pandoc/vim-pandoc', ft = {'pandoc', 'rmd'}, opt = true} -- Pandoc integration
-    use {'JuliaEditorSupport/julia-vim', ft = {'julia'}, opt = true} -- Julia support in vim
+    use {'JuliaEditorSupport/julia-vim'} -- Julia support in vim
     use {'alx741/vim-stylishask'} -- Prettify Haskell
     use {'jalvesaq/Nvim-R', branch = 'stable', ft= {'r'}, opt = true} -- R editing support
     use {
@@ -165,17 +165,17 @@ require'packer'.startup {
 
     --- Syntax
     use {'vim-pandoc/vim-pandoc-syntax', ft = {'pandoc', 'rmd'}} -- Pandoc syntax
-    use {
-      'sheerun/vim-polyglot',
-      config = configs'polyglot',
-    } -- Multilang syntax support
+    -- use {
+    --   'sheerun/vim-polyglot',
+    --   config = configs'polyglot',
+    -- } -- Multilang syntax support
     use {'lervag/vimtex', ft = {'tex', 'latex'}} -- Latex syntax - used by pandoc syntax
-    use {
-      'evanleck/vim-svelte',
-      branch = 'main',
-      ft = {'svelte'},
-      config = configs'vim-svelte',
-    } -- svelte plugin
+    -- use {
+    --   'evanleck/vim-svelte',
+    --   branch = 'main',
+    --   ft = {'svelte'},
+    --   config = configs'vim-svelte',
+    -- } -- svelte plugin
     use {
       'PProvost/vim-markdown-jekyll',
       ft = {'markdown', 'pandoc', 'rmarkdown'}

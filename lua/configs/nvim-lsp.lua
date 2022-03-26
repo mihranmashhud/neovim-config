@@ -19,15 +19,14 @@ local on_attach = function(client, bufnr)
   nmap('gr', vim.lsp.buf.references, opts, 'Go to references')
   nmap('gi', vim.lsp.buf.implementation, opts, 'Go to implementation')
   nmap('gs', vim.lsp.buf.signature_help, opts, 'Show signature help')
-  nmap('K', vim.lsp.buf.hover, opts, 'Hover doc')
-  nmap('gh', require"lspsaga.provider".lsp_finder, opts, 'Show definitions & references')
+  nmap('K', ':Lspsaga hover_doc<CR>', opts, 'Hover doc')
   nmap(']d', vim.lsp.diagnostic.goto_next, opts, 'Prev diagnostic')
   nmap('[d', vim.lsp.diagnostic.goto_prev, opts, 'Next diagnostic')
   -- Leader mappings
   set_group_name('<leader>l', 'LSP')
-  nmap('<leader>lr', vim.lsp.buf.rename, opts, 'Rename')
-  nmap('<leader>le', vim.lsp.diagnostic.show_line_diagnostics, opts, 'View line diagnostics')
-  nmap('<leader>la', require("lspsaga.codeaction").code_action, opts, 'View code actions')
+  nmap('<leader>lr', ':Lspsaga rename<CR>', opts, 'Rename')
+  nmap('<leader>le', ':Lspsaga show_line_diagnostics<CR>', opts, 'View line diagnostics')
+  nmap('<leader>la', ':Lspsaga code_action<CR>', opts, 'View code actions')
   nmap('<leader>lD', ':ToggleDiag<CR>', opts, 'Toggle diagnostics')
 
   -- Set some keybinds conditional on server capabilities
@@ -152,7 +151,7 @@ end
 local sumneko_root_path = sumneko_linux_root or vim.fn.stdpath('cache')..'/lspconfig/sumneko_lua/lua-language-server'
 local sumneko_binary = sumneko_linux_bin or sumneko_root_path.."/bin/"..system_name.."/lua-language-server"
 
-require'lspconfig'.sumneko_lua.setup {
+lspconfig.sumneko_lua.setup {
   root_dir = function(fname)
     return util.find_git_ancestor(fname) or util.path.dirname(fname)
   end,
@@ -184,25 +183,36 @@ require'lspconfig'.sumneko_lua.setup {
 }
 
 -- Ruby
-require'lspconfig'.solargraph.setup {
+lspconfig.solargraph.setup {
   on_attach = on_attach,
   capabilities = capabilities,
 }
 
--- LaTeX/BibTeX
--- require'lspconfig'.texlab.setup {
---   on_attach = on_attach,
--- --   capabilities = capabilities,
--- }
-
 -- Dart/Flutter
-require'lspconfig'.dartls.setup {
+lspconfig.dartls.setup {
   on_attach = on_attach,
   capabilities = capabilities,
 }
 
 -- Java
-require'lspconfig'.java_language_server.setup{
+lspconfig.java_language_server.setup{
+  on_attach = on_attach,
+  capabilities = capabilities,
+}
+
+-- Emmet
+lspconfig.emmet_ls.setup{
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = { "html", "css", "svelte" },
+}
+
+-- CSS
+lspconfig.cssls.setup{
+  on_attach = on_attach,
+  capabilities = capabilities,
+}
+lspconfig.stylelint_lsp.setup{
   on_attach = on_attach,
   capabilities = capabilities,
 }
@@ -216,4 +226,10 @@ for type, icon in pairs(signs) do
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
-vim.diagnostic.config({signs = {severity = {min=vim.diagnostic.severity.WARN} }})
+vim.diagnostic.config({
+  signs = {
+    severity = {
+      min = vim.diagnostic.severity.WARN,
+    },
+  },
+})
