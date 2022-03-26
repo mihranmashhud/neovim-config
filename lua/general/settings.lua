@@ -24,7 +24,8 @@ vim.opt.autoread = true                                               -- Autorea
 vim.opt.fillchars = { eob = ' ' }                                     -- Transparent end of buffer chars
 vim.opt.scrolloff = 8                                                 -- Keep this many lines above and below cursor
 vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }               -- Better completion experience
-vim.opt.guifont = 'InputMono Nerd Font:h14'                           -- GUI Font
+vim.opt.guifont = 'Input Mono:h10'                           -- GUI Font
+vim.opt.guifontwide = 'FiraCode Nerd Font:h10'                           -- GUI Font
 vim.opt.linespace = 1                                                 --
 vim.opt.modelines = 1                                                 --
 vim.opt.conceallevel = 0                                              -- Don't conceal things please
