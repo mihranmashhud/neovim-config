@@ -106,10 +106,11 @@ nnoremap('<leader>st', ':Telescope current_buffer_tags<CR>', opts, 'buffer tags'
 nnoremap('<leader>sy', ':Telescope filetypes<CR>', opts, 'filetypes')
 nnoremap('<leader>sf', ':Telescope find_files<CR>', opts, 'files')
 nnoremap('<leader>sw', ':Telescope live_grep<CR>', opts, 'live grep')
+
 set_group_name('<leader>S', 'Session')
-nnoremap('<leader>SS', ':SaveSession<CR>', opts, 'save session')
-nnoremap('<leader>SL', ':LoadCurrentDirSession<CR>', opts, 'last session in dir')
-nnoremap('<leader>Sl', ':LoadLastSession<CR>', opts, 'last session')
+nnoremap('<leader>SS', ':SessionManager save_session<CR>', opts, 'save session')
+nnoremap('<leader>SL', ':SessionManager load_current_dir_session<CR>', opts, 'last session in dir')
+nnoremap('<leader>Sl', ':SessionManager load_last_session<CR>', opts, 'last session')
 
 set_group_name('<leader>x', 'Execute')
 nnoremap('<leader>xc', ':lua require("utils.debug").execute_line()<CR>', opts, 'current line')

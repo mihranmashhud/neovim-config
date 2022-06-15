@@ -5,11 +5,10 @@ local map_utils = require'utils.map'
 local nmap = map_utils.nmap
 local vmap = map_utils.vmap
 -- local autocmd = require'utils.autocmd'.autocmd
-local bind_func = map_utils.buf_bind_function
 local set_group_name = require('utils.map').set_group_name
 local dirname = util.path.dirname
 
-local on_attach = function(client, bufnr)
+local on_attach = function(client)
   print('LSP started.')
 
   -- Mappings
@@ -28,41 +27,9 @@ local on_attach = function(client, bufnr)
   nmap('<leader>le', ':Lspsaga show_line_diagnostics<CR>', opts, 'View line diagnostics')
   nmap('<leader>la', ':Lspsaga code_action<CR>', opts, 'View code actions')
   nmap('<leader>lD', ':ToggleDiag<CR>', opts, 'Toggle diagnostics')
-
-  -- Set some keybinds conditional on server capabilities
-  if client.resolved_capabilities.document_formatting then
-    nmap('<space>lF', vim.lsp.buf.formatting, opts, 'Format file')
-  elseif client.resolved_capabilities.document_range_formatting then
-    nmap('<space>lF', vim.lsp.buf.range_formatting, opts, 'Format file')
-  end
 end
 
 local capabilities = require'cmp_nvim_lsp'.update_capabilities(vim.lsp.protocol.make_client_capabilities())
-
--- General LS
-local prettier = {
-  formatCommand = "npx prettier --stdin-filepath ${INPUT}",
-  formatStdin = true,
-}
-lspconfig.efm.setup{
-  on_attach = on_attach,
-  capabilities = capabilities,
-  filetypes = { "lua", "javascript", "typescriptreact", "typescript"},
-  settings = {
-    rootMarkers = {".git/"},
-    languages = {
-      javascript = {
-        prettier,
-      },
-      typescriptreact = {
-        prettier,
-      },
-      typescript = {
-        prettier,
-      },
-    }
-  }
-}
 
 -- Python
 lspconfig.pyright.setup{
@@ -212,7 +179,13 @@ lspconfig.cssls.setup{
   on_attach = on_attach,
   capabilities = capabilities,
 }
+
 lspconfig.stylelint_lsp.setup{
+  on_attach = on_attach,
+  capabilities = capabilities,
+}
+
+lspconfig.tailwindcss.setup{
   on_attach = on_attach,
   capabilities = capabilities,
 }

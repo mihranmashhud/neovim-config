@@ -15,7 +15,7 @@ dashboard.section.header.val = {
    [[⠀⠀⠀⠙⢿⠀⠀⠀⠀⠀⠀⠀⠀⠈⢿⡿⠋   ]],
 }
 dashboard.section.buttons.val = {
-   dashboard.button("SPC S L", " Last session", ":LoadCurrentDirSession<CR>"),
+   dashboard.button("SPC S L", " Last session", ":SessionManager load_current_dir_session<CR>"),
    dashboard.button("SPC f  ", " Find files", ":Telescope find_files<CR>"),
    dashboard.button("SPC s w", " Live grep", ":Telescope live_grep<CR>"),
    dashboard.button("SPC s h", " Search history", ":Telescope search_history<CR>"),

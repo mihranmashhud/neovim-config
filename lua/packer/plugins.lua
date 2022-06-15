@@ -43,6 +43,7 @@ require'packer'.startup {
       'hrsh7th/nvim-cmp',
       requires = {{'L3MON4D3/LuaSnip'}},
       config = configs'completion',
+      commit = "dbc72290295cfc63075dab9ea635260d2b72f2e5",
     } -- Completion
     use {
       'neovim/nvim-lspconfig',
@@ -144,6 +145,11 @@ require'packer'.startup {
       'WhoIsSethDaniel/toggle-lsp-diagnostics.nvim',
       requires = {'neovim/nvim-lspconfig'},
     }
+    use {
+      'jose-elias-alvarez/null-ls.nvim',
+      config = configs'null-ls',
+      requires = {'nvim-lua/plenary.nvim'},
+    } -- Non-LSP sources
 
     --- Language specific
     use {'vim-pandoc/vim-pandoc', ft = {'pandoc', 'rmd'}, opt = true} -- Pandoc integration
