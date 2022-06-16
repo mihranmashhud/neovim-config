@@ -31,6 +31,9 @@ inoremap('kj', '<Esc>')
 tnoremap('jk', '<Esc>')
 tnoremap('kj', '<Esc>')
 
+-- J no op since it crashes
+nnoremap('J', '<Nop>')
+
 -- Window resize
 nnoremap('<M-j>', ':resize -2<CR>', { silent = true })
 nnoremap('<M-k>', ':resize +2<CR>', { silent = true })
