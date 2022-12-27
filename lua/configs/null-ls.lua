@@ -19,9 +19,9 @@ null_ls.setup {
   },
   on_attach = function(client)
     local opts = {noremap = true, silent = true}
-    if client.resolved_capabilities.document_formatting then
+    if client.server_capabilities.documentFormattingProvider then
       nmap('<space>lF', vim.lsp.buf.formatting, opts, 'Format file')
-    elseif client.resolved_capabilities.document_range_formatting then
+    elseif client.server_capabilities.documentRangeFormattingProvider then
       nmap('<space>lF', vim.lsp.buf.range_formatting, opts, 'Format file')
     end
   end
