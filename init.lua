@@ -4,8 +4,8 @@ require'utils.debug'
 require'keys.mappings'
 -- Settings
 require'general.settings'
--- Configs
-require'configs'
+-- Autocmds
+require'general.autocmds'
 -- Theming
 require'theming'
 -- Plugins
