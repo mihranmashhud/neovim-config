@@ -46,7 +46,7 @@ nnoremap('Y', 'y$')
 -- Keep jumps centered
 nnoremap('n', 'nzzzv')
 nnoremap('N', 'Nzzzv')
-nnoremap('J', 'mzJ`z')
+-- nnoremap('J', 'mzJ`z')
 
 -- Undo break points
 inoremap(',', ',<c-g>u')
@@ -111,7 +111,7 @@ nnoremap('<leader>sf', ':Telescope find_files<CR>', opts, 'files')
 nnoremap('<leader>sw', ':Telescope live_grep<CR>', opts, 'live grep')
 
 set_group_name('<leader>S', 'Session')
-nnoremap('<leader>SS', ':SessionManager save_session<CR>', opts, 'save session')
+nnoremap('<leader>SS', ':SessionManager save_current_session<CR>', opts, 'save session')
 nnoremap('<leader>SL', ':SessionManager load_current_dir_session<CR>', opts, 'last session in dir')
 nnoremap('<leader>Sl', ':SessionManager load_last_session<CR>', opts, 'last session')
 
