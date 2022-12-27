@@ -16,15 +16,16 @@ local function configs(module)
   return string.format('require("configs.%s")', module)
 end
 
-require'packer'.startup {
+require'packer'.startup{
   function(use)
     use {'wbthomason/packer.nvim'}
 
     --- LSP / IDE features
     use {
       'nvim-treesitter/nvim-treesitter',
-      run = ':TSUpdate',
+      run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
       config = configs'nvim-treesitter',
+      commit = "4cccb6f494eb255b32a290d37c35ca12584c74d0",
     } -- Treesitter
     use {
       'windwp/nvim-ts-autotag',
@@ -38,6 +39,7 @@ require'packer'.startup {
         {'nvim-telescope/telescope-fzy-native.nvim'},
       },
       config = configs'telescope',
+      tag = '0.1.0',
     } -- Telescope
     use {
       'hrsh7th/nvim-cmp',
@@ -114,7 +116,7 @@ require'packer'.startup {
       config = configs'saga',
     } -- LSP UI
     use {
-      'kyazdani42/nvim-tree.lua',
+      'nvim-tree/nvim-tree.lua',
       requires = {{'kyazdani42/nvim-web-devicons'}},
       config = configs'nvim-tree',
     } -- Explorer
@@ -123,12 +125,25 @@ require'packer'.startup {
       config = configs'nvim-dap',
     } -- Debug Adapter protocol
     use {
+      "rcarriga/nvim-dap-ui",
+      requires = {"mfussenegger/nvim-dap"},
+    } -- DAP UI
+    use {
       'nvim-telescope/telescope-dap.nvim',
       requires = {
         {'nvim-telescope/telescope.nvim'},
         {'mfussenegger/nvim-dap'},
       },
     } -- Telescope DAP plugin
+    use {
+      "mxsdev/nvim-dap-vscode-js",
+      requires = {"mfussenegger/nvim-dap"},
+    } -- JS DAP
+    use {
+      "microsoft/vscode-js-debug",
+      opt = true,
+      run = "npm install --legacy-peer-deps && npm run compile",
+    } -- JS DAP adapter
     use {
       'mfussenegger/nvim-dap-python',
       requires = {{'mfussenegger/nvim-dap'}},
@@ -150,17 +165,26 @@ require'packer'.startup {
       config = configs'null-ls',
       requires = {'nvim-lua/plenary.nvim'},
     } -- Non-LSP sources
+    use {
+      'MunifTanjim/exrc.nvim',
+      requires = {'MunifTanjim/nui.nvim'},
+    }
 
     --- Language specific
     use {'vim-pandoc/vim-pandoc', ft = {'pandoc', 'rmd'}, opt = true} -- Pandoc integration
     use {'JuliaEditorSupport/julia-vim'} -- Julia support in vim
     use {'alx741/vim-stylishask'} -- Prettify Haskell
-    use {'jalvesaq/Nvim-R', branch = 'stable', ft= {'r'}, opt = true} -- R editing support
+    use {
+      'jalvesaq/Nvim-R',
+      branch = 'stable',
+      opt = true,
+    } -- R editing support
     use {
       'vim-pandoc/vim-rmarkdown',
       requires = {{'vim-pandoc/vim-pandoc'}, {'vim-pandoc-syntax'}},
       ft = {'rmd'}
     } -- Pandoc filetype
+    use {'mfussenegger/nvim-jdtls'}
 
     --- Git
     use {'tpope/vim-fugitive'} -- Git integration
@@ -171,21 +195,15 @@ require'packer'.startup {
 
     --- Syntax
     use {'vim-pandoc/vim-pandoc-syntax', ft = {'pandoc', 'rmd'}} -- Pandoc syntax
-    -- use {
-    --   'sheerun/vim-polyglot',
-    --   config = configs'polyglot',
-    -- } -- Multilang syntax support
     use {'lervag/vimtex', ft = {'tex', 'latex'}} -- Latex syntax - used by pandoc syntax
-    -- use {
-    --   'evanleck/vim-svelte',
-    --   branch = 'main',
-    --   ft = {'svelte'},
-    --   config = configs'vim-svelte',
-    -- } -- svelte plugin
     use {
       'PProvost/vim-markdown-jekyll',
       ft = {'markdown', 'pandoc', 'rmarkdown'}
     } -- YAML front matter highlighting
+    use {
+      'elkowar/yuck.vim',
+      ft = {'yuck'}
+    }
 
     local prose_fts = {'markdown', 'pandoc', 'latex', 'mkd'}
     local prose_run = function () require'configs.writing' end
@@ -205,12 +223,6 @@ require'packer'.startup {
       ft = prose_fts,
       run = prose_run,
     } -- Spell check additions + Thesaurus/dictionary completion
-    -- use {
-    --   'joom/latex-unicoder.vim',
-    --   ft = prose_fts,
-    --   run = prose_run,
-    --   config = configs'latex-unicoder',
-    -- } -- Convert latex command to unicode
     use {
       'dhruvasagar/vim-table-mode',
       ft = prose_fts,
@@ -261,16 +273,16 @@ require'packer'.startup {
     use {'kjwon15/vim-transparent'} -- Enable terminal transparency. ~ Remove if not needed
     use {'ghifarit53/tokyonight-vim'} -- Tokyonight theme
     use {
+      'katawful/kat.nvim',
+      tag = '2.0',
+    } -- kat.nvim theme
+    use {'raddari/last-color.nvim'} -- Remember colorscheme
+    use {
       'glepnir/galaxyline.nvim',
       branch = 'main',
       requires = {'kyazdani42/nvim-web-devicons'},
       config = 'require"theming.galaxyline"',
     } -- Statusline
-    -- use {
-    --   'seblj/nvim-tabline',
-    --   requires = {'kyazdani42/nvim-web-devicons'},
-    --   config = configs'tabline',
-    -- } -- Tabline
     use {
       'rafcamlet/tabline-framework.nvim',
       requires = 'kyazdani42/nvim-web-devicons',
@@ -299,14 +311,12 @@ require'packer'.startup {
     } -- Popup notify
 
     --- Browser
-    use {'raghur/vim-ghost', run = ':GhostInstall'} -- Send text between browser and nvim.
     use {
-      'glacambre/firenvim',
-      run = function ()
-        vim.fn['firenvim#install'](0)
-      end,
-      opt = true,
-    } -- Browser integration
+      'subnut/nvim-ghost.nvim',
+      run = {
+        ':call nvim_ghost#installer#install()'
+      }
+    }
 
     --- Workarounds
     use {'antoinemadec/FixCursorHold.nvim'} -- Fix Cursor Hold Issue (https://github.com/neovim/neovim/issues/12587)
