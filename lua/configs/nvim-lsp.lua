@@ -29,7 +29,7 @@ local on_attach = function(client)
   nmap('<leader>lD', ':ToggleDiag<CR>', opts, 'Toggle diagnostics')
 end
 
-local capabilities = require'cmp_nvim_lsp'.update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require'cmp_nvim_lsp'.default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- Python
 lspconfig.pyright.setup{
@@ -99,9 +99,14 @@ lspconfig.svelte.setup{
   capabilities = capabilities,
 }
 
+lspconfig.vuels.setup{
+  on_attach = on_attach,
+  capabilities = capabilities,
+}
+
 -- Lua
-local sumneko_linux_bin = false
-local sumneko_linux_root = false
+local sumneko_linux_bin = ""
+local sumneko_linux_root = ""
 local system_name
 if vim.fn.has("mac") == 1 then
   system_name = "macOS"
@@ -162,10 +167,12 @@ lspconfig.dartls.setup {
 }
 
 -- Java
-lspconfig.java_language_server.setup{
-  on_attach = on_attach,
-  capabilities = capabilities,
-}
+-- lspconfig.java_language_server.setup{
+--   on_attach = on_attach,
+--   capabilities = capabilities,
+--   cmd = { '/usr/bin/java-language-server' },
+-- }
+
 
 -- Emmet
 lspconfig.emmet_ls.setup{
@@ -206,3 +213,8 @@ vim.diagnostic.config({
     },
   },
 })
+
+-- For use in other lsp configurations.
+return {
+  on_attach = on_attach
+}
