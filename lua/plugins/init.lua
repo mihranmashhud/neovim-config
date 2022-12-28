@@ -236,14 +236,14 @@ require"lazy".setup({
     "lukas-reineke/indent-blankline.nvim",
     config = configs"indentline",
   }, -- Indent lines
-  {"lambdalisue/nerdfont.vim"}, -- Nerdfont handler for vim
-  {"kjwon15/vim-transparent"}, -- Enable terminal transparency. ~ Remove if not needed
-  {"ghifarit53/tokyonight-vim"}, -- Tokyonight theme
+  "lambdalisue/nerdfont.vim", -- Nerdfont handler for vim
   {
-    "katawful/kat.nvim",
-    version = "2.0",
-  }, -- kat.nvim theme
-  {"raddari/last-color.nvim"}, -- Remember colorscheme
+    "xiyaowong/nvim-transparent",
+    config = configs"transparent",
+  }, -- Enable terminal transparency.
+  "ghifarit53/tokyonight-vim", -- Tokyonight theme
+  "rebelot/kanagawa.nvim", -- kanagawa theme
+  "raddari/last-color.nvim", -- Remember colorscheme
   {
     "SmiteshP/nvim-navic",
     config = function()
