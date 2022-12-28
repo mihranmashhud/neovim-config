@@ -1,7 +1,7 @@
 vim.g.tokyonight_transparent_background = 1
-vim.g.tokyonight_style = 'night'
+vim.g.tokyonight_style = "night"
 
-local theme = require'last-color'.recall() or 'kat.nvim'
+local theme = require"last-color".recall() or "kat.nvim"
 
 vim.cmd(("colorscheme %s"):format(theme))
 
@@ -26,5 +26,4 @@ highlight GitGutterDeleteInvisible ctermbg=None guibg=None
 highlight Pmenu ctermbg=None guibg=None
 ]]
 
-vim.api.nvim_command('hi StatusLine guibg='..(require'galaxyline.theme'.default.bg))
 vim.api.nvim_set_hl(0, "TSGroup", { link = "@group"})
