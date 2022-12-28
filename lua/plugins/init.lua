@@ -27,14 +27,11 @@ require"lazy".setup({
     build = ":TSUpdate",
     config = configs"nvim-treesitter",
     commit = "4cccb6f494eb255b32a290d37c35ca12584c74d0",
-  },
-  {
-    "windwp/nvim-ts-autotag",
-    dependencies = {"nvim-treesitter/nvim-treesitter"},
-  },
-  {
-    "nvim-treesitter/nvim-treesitter-textobjects",
-    dependencies = {"nvim-treesitter/nvim-treesitter"},
+    dependencies = {
+      "windwp/nvim-ts-autotag",
+      "nvim-treesitter/nvim-treesitter-textobjects",
+      "JoosepAlviste/nvim-ts-context-commentstring",
+    }
   },
   {
     "nvim-telescope/telescope.nvim",
@@ -99,11 +96,17 @@ require"lazy".setup({
   {
     "mfussenegger/nvim-dap",
     config = configs"nvim-dap",
+    dependencies = {
+      "rcarriga/nvim-dap-ui", -- DAP UI
+      "mxsdev/nvim-dap-vscode-js", -- JS DAP
+      {
+        "microsoft/vscode-js-debug",
+        build = "npm install --legacy-peer-deps && npm run compile",
+      }, -- JS DAP adapter
+      "mfussenegger/nvim-dap-python", -- Python DAP
+      "theHamsta/nvim-dap-virtual-text", -- DAP virtual text
+    }
   }, -- Debug Adapter protocol
-  {
-    "rcarriga/nvim-dap-ui",
-    dependencies = {"mfussenegger/nvim-dap"},
-  }, -- DAP UI
   {
     "nvim-telescope/telescope-dap.nvim",
     dependencies = {
@@ -111,22 +114,6 @@ require"lazy".setup({
       {"mfussenegger/nvim-dap"},
     },
   }, -- Telescope DAP plugin
-  {
-    "mxsdev/nvim-dap-vscode-js",
-    dependencies = {"mfussenegger/nvim-dap"},
-  }, -- JS DAP
-  {
-    "microsoft/vscode-js-debug",
-    run = "npm install --legacy-peer-deps && npm run compile",
-  }, -- JS DAP adapter
-  {
-    "mfussenegger/nvim-dap-python",
-    dependencies = {{"mfussenegger/nvim-dap"}},
-  }, -- Python DAP
-  {
-    "theHamsta/nvim-dap-virtual-text",
-    dependencies = {{"mfussenegger/nvim-dap"}},
-  }, -- DAP virtual text
   {
     "chipsenkbeil/distant.nvim",
     config = configs"distant",
@@ -143,7 +130,7 @@ require"lazy".setup({
   {
     "MunifTanjim/exrc.nvim",
     dependencies = {"MunifTanjim/nui.nvim"},
-  },
+  }, -- Project local settings.
 
   --- Language specific
   {"vim-pandoc/vim-pandoc", ft = {"pandoc", "rmd"}}, -- Pandoc integration
@@ -219,9 +206,7 @@ require"lazy".setup({
   {"yuttie/comfortable-motion.vim"}, -- Smooth scrolling
   {
     "numToStr/Comment.nvim",
-    config = function()
-        require"Comment".setup()
-    end
+    config = configs"comment",
   }, -- Comment out text
   {"norcalli/nvim-colorizer.lua"}, -- Fast color preview
   {

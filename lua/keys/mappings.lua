@@ -70,8 +70,8 @@ vim.g.mapleader = ' '
 nmap('<Space>', '')
 
 local opts = { silent = true }
-nnoremap('<leader>/', '<Plug>kommentary_line_default', opts, 'comment')
-vnoremap('<leader>/', '<Plug>kommentary_visual_default', opts)
+nnoremap('<leader>/', '<Plug>(comment_toggle_linewise_current)', opts, 'comment')
+vnoremap('<leader>/', '<Plug>(comment_toggle_linewise_visual)', opts, 'comment')
 nnoremap('<leader>;', ':Commands<CR>', opts, 'commands')
 nnoremap('<leader>=', '<C-w>=', opts, 'balance windows')
 nnoremap('<leader>,', ':Dashboard<CR>', opts, 'start screen')
