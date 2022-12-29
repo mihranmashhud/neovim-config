@@ -220,8 +220,10 @@ require"lazy".setup({
     config = configs"which-key",
   },
   {"tpope/vim-repeat"}, -- Repeat
-
-  {"junegunn/goyo.vim"}, -- Zen mode
+  {
+    "folke/zen-mode.nvim",
+    config = configs"zen-mode",
+  }, -- Zen mode
   {
     "windwp/nvim-autopairs",
     config = configs"autopairs",
