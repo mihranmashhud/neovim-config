@@ -109,9 +109,9 @@ vim.keymap.set("n", "<leader>SL", ":SessionManager load_current_dir_session<CR>"
 vim.keymap.set("n", "<leader>Sl", ":SessionManager load_last_session<CR>", { silent = true, desc = "last session" })
 
 set_group_name("<leader>x", "Execute")
-vim.keymap.set("n", "<leader>xc", function() return require("utils.debug").execute_line() end, { silent = true, desc = "current line" })
-vim.keymap.set("n", "<leader>xf", function() return require("utils.debug").load_file() end, { silent = true, desc = "file" })
-vim.keymap.set("v", "<leader>xx", function() return require("utils.debug").execute_visual_selection() end, { silent = true, desc = "selection" })
+vim.keymap.set("n", "<leader>xc", function() return require("general.debug").execute_line() end, { silent = true, desc = "current line" })
+vim.keymap.set("n", "<leader>xf", function() return require("general.debug").load_file() end, { silent = true, desc = "file" })
+vim.keymap.set("v", "<leader>xx", function() return require("general.debug").execute_visual_selection() end, { silent = true, desc = "selection" })
 
 set_group_name("<leader>g", "Git")
 vim.keymap.set("n", "<leader>gA", ":Git add .<CR>", { silent = true, desc = "add all" })
