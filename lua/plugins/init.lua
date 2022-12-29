@@ -85,9 +85,17 @@ require"lazy".setup({
     dependencies = {"kyazdani42/nvim-web-devicons"},
   }, -- Diagnostics management
   {
-    "nvim-tree/nvim-tree.lua",
-    dependencies = {"kyazdani42/nvim-web-devicons"},
-    config = configs"nvim-tree",
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v2.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "kyazdani42/nvim-web-devicons",
+      "MunifTanjim/nui.nvim",
+      {
+        's1n7ax/nvim-window-picker',
+        config = configs"window-picker",
+      }
+    },
   }, -- Explorer
   {
     "mfussenegger/nvim-dap",
