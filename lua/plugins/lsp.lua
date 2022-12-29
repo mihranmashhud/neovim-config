@@ -18,7 +18,6 @@ lsp.ensure_installed{
   "clangd",
   "tsserver",
   "julials",
-  -- "hls",
   "svelte",
   "vuels",
   "sumneko_lua",
@@ -28,7 +27,6 @@ lsp.ensure_installed{
   "cssls",
   "stylelint_lsp",
   "tailwindcss",
-  -- "r_language_server",
   "yamlls",
 }
 
@@ -70,6 +68,11 @@ local on_attach = function(client, bufnr)
                  { silent = true, desc = "View code actions" })
   vim.keymap.set("n", "<leader>lD", ":ToggleDiag<CR>",
                  { silent = true, desc = "Toggle diagnostics" })
+  if client.supports_method("textDocument/formatting") then
+    vim.keymap.set("n", "<space>lF",
+                   function() vim.lsp.buf.format({ bufnr = bufnr }) end,
+                   { silent = true, desc = "Format file" })
+  end
 end
 
 lsp.on_attach(on_attach)
