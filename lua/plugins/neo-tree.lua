@@ -9,9 +9,7 @@ require"neo-tree".setup{
   sort_function = nil,
 
   default_component_configs = {
-    container = {
-      enable_character_fade = true
-    },
+    container = { enable_character_fade = true },
 
     indent = {
       indent_size = 2,
@@ -35,13 +33,10 @@ require"neo-tree".setup{
       -- The next two settings are only a fallback, if you use nvim-web-devicons and configure default icons there
       -- then these will never be used.
       default = "*",
-      highlight = "NeoTreeFileIcon"
+      highlight = "NeoTreeFileIcon",
     },
 
-    modified = {
-      symbol = "[+]",
-      highlight = "NeoTreeModified",
-    },
+    modified = { symbol = "[+]", highlight = "NeoTreeModified" },
 
     name = {
       trailing_slash = false,
@@ -52,27 +47,24 @@ require"neo-tree".setup{
     git_status = {
       symbols = {
         -- Change type
-        added     = "", -- or "✚", but this is redundant info if you use git_status_colors on the name
-        modified  = "", -- or "", but this is redundant info if you use git_status_colors on the name
-        deleted   = "✖",-- this can only be used in the git_status source
-        renamed   = "",-- this can only be used in the git_status source
+        added = "", -- or "✚", but this is redundant info if you use git_status_colors on the name
+        modified = "", -- or "", but this is redundant info if you use git_status_colors on the name
+        deleted = "✖", -- this can only be used in the git_status source
+        renamed = "", -- this can only be used in the git_status source
         -- Status type
         untracked = "",
-        ignored   = "",
-        unstaged  = "",
-        staged    = "",
-        conflict  = "",
-      }
+        ignored = "",
+        unstaged = "",
+        staged = "",
+        conflict = "",
+      },
     },
   },
 
   window = {
     position = "left",
     width = 30,
-    mapping_options = {
-      noremap = true,
-      nowait = true,
-    },
+    mapping_options = { noremap = true, nowait = true },
     mappings = {
       ["<space>"] = {
         "toggle_node",
@@ -105,7 +97,7 @@ require"neo-tree".setup{
       ["?"] = "show_help",
       ["<"] = "prev_source",
       [">"] = "next_source",
-    }
+    },
   },
 
   nesting_rules = {},
@@ -116,12 +108,10 @@ require"neo-tree".setup{
       hide_dotfiles = true,
       hide_gitignored = true,
       hide_hidden = true, -- only works on Windows for hidden files/directories
-      hide_by_name = {
-        "node_modules",
-      },
+      hide_by_name = { "node_modules" },
       hide_by_pattern = { -- uses glob style patterns
-        --"*.meta",
-        --"*/src/*/tsconfig.json",
+        -- "*.meta",
+        -- "*/src/*/tsconfig.json",
       },
       always_show = { -- remains visible even if other settings would normally hide it
         ".gitignored",
@@ -129,11 +119,11 @@ require"neo-tree".setup{
         ".prettierrc",
       },
       never_show = { -- remains hidden even if visible is toggled to true, this overrides always_show
-        --".DS_Store",
-        --"thumbs.db"
+        -- ".DS_Store",
+        -- "thumbs.db"
       },
       never_show_by_pattern = { -- uses glob style patterns
-        --".null-ls_*",
+        -- ".null-ls_*",
       },
     },
     follow_current_file = false, -- This will find and focus the file in the active buffer every
@@ -157,8 +147,8 @@ require"neo-tree".setup{
         ["<c-x>"] = "clear_filter",
         ["[g"] = "prev_git_modified",
         ["]g"] = "next_git_modified",
-      }
-    }
+      },
+    },
   },
 
   buffers = {
@@ -171,7 +161,7 @@ require"neo-tree".setup{
         ["bd"] = "buffer_delete",
         ["<bs>"] = "navigate_up",
         ["."] = "set_root",
-      }
+      },
     },
   },
 
@@ -179,14 +169,14 @@ require"neo-tree".setup{
     window = {
       position = "float",
       mappings = {
-        ["A"]  = "git_add_all",
+        ["A"] = "git_add_all",
         ["gu"] = "git_unstage_file",
         ["ga"] = "git_add_file",
         ["gr"] = "git_revert_file",
         ["gc"] = "git_commit",
         ["gp"] = "git_push",
         ["gg"] = "git_commit_and_push",
-      }
-    }
-  }
+      },
+    },
+  },
 }

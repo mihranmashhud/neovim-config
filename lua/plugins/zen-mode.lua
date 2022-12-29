@@ -22,9 +22,7 @@ require"zen-mode".setup{
   plugins = {
     -- disable some global vim options (vim.o...)
     -- comment the lines to not apply the options
-    options = {
-      enabled = true,
-    },
+    options = { enabled = true },
     twilight = { enabled = true }, -- enable to start Twilight when zen mode opens
     gitsigns = { enabled = false }, -- disables git signs
     tmux = { enabled = false }, -- disables the tmux statusline
@@ -38,9 +36,7 @@ require"zen-mode".setup{
     },
   },
   -- callback where you can add custom code when the Zen window opens
-  on_open = function(win)
-  end,
+  on_open = function(win) end,
   -- callback where you can add custom code when the Zen window closes
-  on_close = function()
-  end,
+  on_close = function() end,
 }

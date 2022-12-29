@@ -1,7 +1,7 @@
-vim.opt.foldmethod = 'expr'
-vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 
-require'nvim-treesitter.configs'.setup{
+require"nvim-treesitter.configs".setup{
   ensure_installed = {
     "bash",
     "bibtex",
@@ -35,21 +35,10 @@ require'nvim-treesitter.configs'.setup{
     "vue",
     "yaml",
   },
-  highlight = {
-    enable = true,
-  },
-  autotag = {
-    enable = true,
-  },
-  indent = {
-    enable = true,
-  },
-  context_commentstring = {
-    enable = true,
-    enable_autocmd = false,
-  },
-  playground = {
-    enable = true,
-  }
+  highlight = { enable = true },
+  autotag = { enable = true },
+  indent = { enable = true },
+  context_commentstring = { enable = true, enable_autocmd = false },
+  playground = { enable = true },
 }
 

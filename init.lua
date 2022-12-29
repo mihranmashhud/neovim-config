@@ -1,4 +1,4 @@
 -- General
-require'general'
+require"general"
 -- Plugins
-require'plugins'
+require"plugins"

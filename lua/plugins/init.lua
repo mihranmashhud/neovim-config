@@ -1,5 +1,5 @@
 -- Bootstrap lazy.nvim
-local lazypath = vim.fn.stdpath("data").."/lazy/lazy.nvim"
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
     "git",
@@ -13,12 +13,10 @@ end
 vim.opt.runtimepath:prepend(lazypath)
 
 local function configs(module)
-  return function()
-    require("plugins."..module)
-  end
+  return function() require("plugins." .. module) end
 end
 
-local prose_fts = {"markdown", "pandoc", "latex", "mkd"}
+local prose_fts = { "markdown", "pandoc", "latex", "mkd" }
 
 -- Plugins
 require"lazy".setup{
@@ -32,14 +30,14 @@ require"lazy".setup{
       "nvim-treesitter/nvim-treesitter-textobjects",
       "nvim-treesitter/playground",
       "JoosepAlviste/nvim-ts-context-commentstring",
-    }
+    },
   },
   {
     "nvim-telescope/telescope.nvim",
     dependencies = {
-      {"nvim-lua/popup.nvim"},
-      {"nvim-lua/plenary.nvim"},
-      {"nvim-telescope/telescope-fzy-native.nvim"},
+      { "nvim-lua/popup.nvim" },
+      { "nvim-lua/plenary.nvim" },
+      { "nvim-telescope/telescope-fzy-native.nvim" },
     },
     config = configs"telescope",
     version = "0.1.0",
@@ -65,10 +63,7 @@ require"lazy".setup{
       "jc-doyle/cmp-pandoc-references",
       "f3fora/cmp-spell",
       "kdheepak/cmp-latex-symbols",
-      {
-        "tzachar/cmp-tabnine",
-        build = "./install.sh",
-      },
+      { "tzachar/cmp-tabnine", build = "./install.sh" },
       "lukas-reineke/cmp-under-comparator",
 
       -- Snippets
@@ -78,12 +73,12 @@ require"lazy".setup{
       -- Customization
       "onsails/lspkind-nvim",
       "SmiteshP/nvim-navic",
-    }
+    },
   },
   {
     "folke/trouble.nvim",
     config = configs"trouble",
-    dependencies = {"kyazdani42/nvim-web-devicons"},
+    dependencies = { "kyazdani42/nvim-web-devicons" },
   }, -- Diagnostics management
   {
     "nvim-neo-tree/neo-tree.nvim",
@@ -92,10 +87,7 @@ require"lazy".setup{
       "nvim-lua/plenary.nvim",
       "kyazdani42/nvim-web-devicons",
       "MunifTanjim/nui.nvim",
-      {
-        's1n7ax/nvim-window-picker',
-        config = configs"window-picker",
-      }
+      { "s1n7ax/nvim-window-picker", config = configs"window-picker" },
     },
   }, -- Explorer
   {
@@ -110,72 +102,48 @@ require"lazy".setup{
       }, -- JS DAP adapter
       "mfussenegger/nvim-dap-python", -- Python DAP
       "theHamsta/nvim-dap-virtual-text", -- DAP virtual text
-    }
+    },
   }, -- Debug Adapter protocol
   {
     "nvim-telescope/telescope-dap.nvim",
     dependencies = {
-      {"nvim-telescope/telescope.nvim"},
-      {"mfussenegger/nvim-dap"},
+      { "nvim-telescope/telescope.nvim" },
+      { "mfussenegger/nvim-dap" },
     },
   }, -- Telescope DAP plugin
   {
     "WhoIsSethDaniel/toggle-lsp-diagnostics.nvim",
-    dependencies = {"neovim/nvim-lspconfig"},
+    dependencies = { "neovim/nvim-lspconfig" },
   },
   {
     "jose-elias-alvarez/null-ls.nvim",
     config = configs"null-ls",
-    dependencies = {"nvim-lua/plenary.nvim"},
+    dependencies = { "nvim-lua/plenary.nvim" },
   }, -- Non-LSP sources
   {
     "MunifTanjim/exrc.nvim",
     config = configs"exrc",
-    dependencies = {"MunifTanjim/nui.nvim"},
+    dependencies = { "MunifTanjim/nui.nvim" },
   }, -- Project local settings.
 
   --- Language specific
-  {
-    "vim-pandoc/vim-pandoc",
-    lazy = false
-  }, -- Pandoc integration
-  {
-    "jalvesaq/Nvim-R",
-    branch = "stable",
-  }, -- R editing support
+  { "vim-pandoc/vim-pandoc", lazy = false }, -- Pandoc integration
+  { "jalvesaq/Nvim-R", branch = "stable" }, -- R editing support
   {
     "vim-pandoc/vim-rmarkdown",
-    dependencies = {
-      "vim-pandoc/vim-pandoc",
-      "vim-pandoc-syntax"
-    },
+    dependencies = { "vim-pandoc/vim-pandoc", "vim-pandoc-syntax" },
     lazy = false,
   }, -- Pandoc filetype
 
   --- Git
-  {"tpope/vim-fugitive"}, -- Git integration
-  {
-    'lewis6991/gitsigns.nvim',
-    config = configs"gitsigns",
-  }, -- Git changes in gutter
+  { "tpope/vim-fugitive" }, -- Git integration
+  { "lewis6991/gitsigns.nvim", config = configs"gitsigns" }, -- Git changes in gutter
 
   --- Syntax
-  {
-    "vim-pandoc/vim-pandoc-syntax",
-    lazy = false,
-  }, -- Pandoc syntax
-  {
-    "lervag/vimtex",
-    lazy = false,
-  }, -- LaTeX syntax
-  {
-    "PProvost/vim-markdown-jekyll",
-    lazy = false,
-  }, -- YAML front matter highlighting
-  {
-    "elkowar/yuck.vim",
-    lazy = false,
-  },
+  { "vim-pandoc/vim-pandoc-syntax", lazy = false }, -- Pandoc syntax
+  { "lervag/vimtex", lazy = false }, -- LaTeX syntax
+  { "PProvost/vim-markdown-jekyll", lazy = false }, -- YAML front matter highlighting
+  { "elkowar/yuck.vim", lazy = false },
 
   --- Prose editing
   {
@@ -186,70 +154,34 @@ require"lazy".setup{
       "reedes/vim-litecorrect", -- Autocorrect common spelling errors
       "reedes/vim-lexical", -- Spell check additions + Thesaurus/dictionary completion
       "dhruvasagar/vim-table-mode", -- Mode for creating and editing tables
-    }
+    },
   }, -- Writing mode for vim
 
   --- Shortcuts
-  {
-    "kylechui/nvim-surround",
-    config = true,
-  }, -- Edit surrounding text
-  {"tpope/vim-eunuch"}, -- Sugar on top of shell commands
-  {"monaqa/dial.nvim"}, -- Extended inc/decrement
+  { "kylechui/nvim-surround", config = true }, -- Edit surrounding text
+  { "tpope/vim-eunuch" }, -- Sugar on top of shell commands
+  { "monaqa/dial.nvim" }, -- Extended inc/decrement
 
   --- QOL
-  {"yuttie/comfortable-motion.vim"}, -- Smooth scrolling
-  {
-    "numToStr/Comment.nvim",
-    config = configs"comment",
-  }, -- Comment out text
-  {
-    "norcalli/nvim-colorizer.lua",
-    config = configs"colorizer",
-  }, -- Fast color preview
-  {
-    "goolord/alpha-nvim",
-    config = configs"greeter",
-  }, -- Start screen
-  {
-    "Shatur/neovim-session-manager",
-    config = configs"sessions",
-  }, -- Sessions
-  {"folke/twilight.nvim"},
-  {
-    "folke/which-key.nvim",
-    config = configs"which-key",
-  },
-  {"tpope/vim-repeat"}, -- Repeat
-  {
-    "folke/zen-mode.nvim",
-    config = configs"zen-mode",
-  }, -- Zen mode
-  {
-    "windwp/nvim-autopairs",
-    config = configs"autopairs",
-  }, -- Auto pair brackets
-  {"godlygeek/tabular"}, -- Align text easily
+  { "yuttie/comfortable-motion.vim" }, -- Smooth scrolling
+  { "numToStr/Comment.nvim", config = configs"comment" }, -- Comment out text
+  { "norcalli/nvim-colorizer.lua", config = configs"colorizer" }, -- Fast color preview
+  { "goolord/alpha-nvim", config = configs"greeter" }, -- Start screen
+  { "Shatur/neovim-session-manager", config = configs"sessions" }, -- Sessions
+  { "folke/twilight.nvim" },
+  { "folke/which-key.nvim", config = configs"which-key" },
+  { "tpope/vim-repeat" }, -- Repeat
+  { "folke/zen-mode.nvim", config = configs"zen-mode" }, -- Zen mode
+  { "windwp/nvim-autopairs", config = configs"autopairs" }, -- Auto pair brackets
+  { "godlygeek/tabular" }, -- Align text easily
 
   --- Look & Feel
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    config = configs"indentline",
-  }, -- Indent lines
+  { "lukas-reineke/indent-blankline.nvim", config = configs"indentline" }, -- Indent lines
   "lambdalisue/nerdfont.vim", -- Nerdfont handler for vim
-  {
-    "xiyaowong/nvim-transparent",
-    config = configs"transparent",
-  }, -- Enable terminal transparency.
-  {
-    "ghifarit53/tokyonight-vim",
-    config = configs"tokyonight",
-  }, -- Tokyonight theme
-  {"rebelot/kanagawa.nvim"}, -- kanagawa theme
-  {
-    "raddari/last-color.nvim",
-    config = configs"last-color",
-  }, -- Remember colorscheme
+  { "xiyaowong/nvim-transparent", config = configs"transparent" }, -- Enable terminal transparency.
+  { "ghifarit53/tokyonight-vim", config = configs"tokyonight" }, -- Tokyonight theme
+  { "rebelot/kanagawa.nvim" }, -- kanagawa theme
+  { "raddari/last-color.nvim", config = configs"last-color" }, -- Remember colorscheme
   {
     "SmiteshP/nvim-navic",
     config = configs"navic",
@@ -259,23 +191,16 @@ require"lazy".setup{
   {
     "nvim-lualine/lualine.nvim",
     config = configs"lualine",
-    dependencies = {"kyazdani42/nvim-web-devicons"}
+    dependencies = { "kyazdani42/nvim-web-devicons" },
   },
 
   --- Tools
-  {"skywind3000/asyncrun.vim"}, -- Run shell commands in async
-  {"metakirby5/codi.vim"}, -- Code playground
-  {"mbbill/undotree"}, -- View undo tree
-  {
-    "rcarriga/nvim-notify",
-    config = configs"notify",
-  }, -- Popup notify
+  { "skywind3000/asyncrun.vim" }, -- Run shell commands in async
+  { "metakirby5/codi.vim" }, -- Code playground
+  { "mbbill/undotree" }, -- View undo tree
+  { "rcarriga/nvim-notify", config = configs"notify" }, -- Popup notify
 
   --- Browser
-  {
-    "subnut/nvim-ghost.nvim",
-    build = {
-      ":call nvim_ghost#installer#install()"
-    }
-  },
+  { "subnut/nvim-ghost.nvim",
+  build = { ":call nvim_ghost#installer#install()" } },
 }

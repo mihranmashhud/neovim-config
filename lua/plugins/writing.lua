@@ -1,19 +1,19 @@
-local autocmd_utils = require('utils/autocmd')
+local autocmd_utils = require("utils/autocmd")
 local autocmd = autocmd_utils.autocmd
-local nnoremap = require'utils.map'.nnoremap
+local nnoremap = require"utils.map".nnoremap
 
-autocmd('BufNewfile,BufRead *.Rmd set filetype=markdown')
-autocmd('BufNewfile,BufRead *.md set filetype=markdown')
-autocmd('BufNewfile,BufRead *.md set spell')
+autocmd("BufNewfile,BufRead *.Rmd set filetype=markdown")
+autocmd("BufNewfile,BufRead *.md set filetype=markdown")
+autocmd("BufNewfile,BufRead *.md set spell")
 
 -- Init writing plugins
-vim.fn['pencil#init']()
-vim.fn['litecorrect#init']()
-vim.fn['lexical#init']()
+vim.fn["pencil#init"]()
+vim.fn["litecorrect#init"]()
+vim.fn["lexical#init"]()
 
 -- Defaults
-vim.g['pencil#conceallevel'] = 1
-vim.g['pencil#textwidth'] = 80
-vim.g['lexical#spelllang'] = {'en_us', 'en_ca'}
+vim.g["pencil#conceallevel"] = 1
+vim.g["pencil#textwidth"] = 80
+vim.g["lexical#spelllang"] = { "en_us", "en_ca" }
 
-nnoremap('<leader>ap', ':PencilToggle', { silent = true }, 'toggle pencil')
+nnoremap("<leader>ap", ":PencilToggle", { silent = true }, "toggle pencil")

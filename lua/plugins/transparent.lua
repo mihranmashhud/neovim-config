@@ -1,7 +1,5 @@
 require"transparent".setup{
   enable = true,
-  extra_groups = {
-    "TelescopeBorder",
-  },
+  extra_groups = { "TelescopeBorder" },
   exclude = {},
 }
