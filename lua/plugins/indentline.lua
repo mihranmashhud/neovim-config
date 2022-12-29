@@ -1,13 +1,16 @@
-vim.g.indent_blankline_filetype_exclude = {
-  "help",
-  "alpha",
-  "dashpreview",
-  "NvimTree",
-  "vista"
+require"indent_blankline".setup{
+  show_current_context = true,
+  buftype_exclude = {
+    "terminal",
+    "nofile",
+    "quickfix",
+    "prompt",
+  },
+  filetype_exclude = {
+    "help",
+    "alpha",
+    "neo-tree",
+    "lazy",
+  },
+  use_treesitter = true,
 }
-vim.g.indent_blankline_buftype_exclude = {"terminal"}
-vim.g.indent_blankline_use_treesitter = false
-vim.g.indent_blankline_char = ""
-vim.g.indent_blankline_show_first_indent_level = false
-
-require"indent_blankline".setup{}
