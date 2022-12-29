@@ -16,8 +16,8 @@ vim.keymap.set("n", "<C-k>", ":cprev<CR>", { silent = true })
 
 vim.keymap.set("n", ";", ":")
 vim.keymap.set("n", ":", ";")
-vim.keymap.set("i", ";", ":")
-vim.keymap.set("i", ":", ";")
+vim.keymap.set("v", ";", ":")
+vim.keymap.set("v", ":", ";")
 
 -- Esc alias
 vim.keymap.set("i", "jk", "<Esc>")
@@ -65,7 +65,6 @@ vim.keymap.set("n", "<Space>", "")
 
 vim.keymap.set("n", "<leader>/", "<Plug>(comment_toggle_linewise_current)", { silent = true, desc = "comment" })
 vim.keymap.set("v", "<leader>/", "<Plug>(comment_toggle_linewise_visual)", { silent = true, desc = "comment" })
-vim.keymap.set("n", "<leader>;", ":Commands<CR>", { silent = true, desc = "commands" })
 vim.keymap.set("n", "<leader>=", "<C-w>=", { silent = true, desc = "balance windows" })
 vim.keymap.set("n", "<leader>,", ":Dashboard<CR>", { silent = true, desc = "start screen" })
 vim.keymap.set("n", "<leader>c", ":Codi!!<CR>", { silent = true, desc = "live repl" })
@@ -81,8 +80,7 @@ vim.keymap.set("n", "<leader>ac", ":ColorizerToggle<CR>", { silent = true, desc 
 vim.keymap.set("n", "<leader>ae", ":NvimTreeToggle<CR>", { silent = true, desc = "explorer" })
 vim.keymap.set("n", "<leader>au", ":UndotreeToggle<CR>", { silent = true, desc = "undo tree" })
 vim.keymap.set("n", "<leader>an", ":DashboardNewFile<CR>", { silent = true, desc = "new file" })
-vim.keymap.set("n", "<leader>at", ":Vista<CR>", { silent = true, desc = "view tags" })
-vim.keymap.set("n", "<leader>aT", ":Twilight<CR>", { silent = true, desc = "twilight" })
+vim.keymap.set("n", "<leader>at", ":Twilight<CR>", { silent = true, desc = "twilight" })
 
 set_group_name("<leader>s", "Search")
 vim.keymap.set("n", "<leader>sh", ":Telescope search_history<CR>", { silent = true, desc = "search history" })

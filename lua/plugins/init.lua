@@ -19,7 +19,6 @@ local function configs(module)
 end
 
 local prose_fts = {"markdown", "pandoc", "latex", "mkd"}
-local prose_build = function () require"plugins.writing" end
 
 require"lazy".setup({
   {
@@ -85,11 +84,6 @@ require"lazy".setup({
     config = configs"trouble",
     dependencies = {"kyazdani42/nvim-web-devicons"},
   }, -- Diagnostics management
-  {"liuchengxu/vista.vim"}, -- Tag viewer
-  {
-    "tami5/lspsaga.nvim",
-    config = configs"saga",
-  }, -- LSP UI
   {
     "nvim-tree/nvim-tree.lua",
     dependencies = {"kyazdani42/nvim-web-devicons"},
@@ -143,7 +137,7 @@ require"lazy".setup({
   {
     "vim-pandoc/vim-rmarkdown",
     dependencies = {
-      "vim-pandoc/vim-pandoc", 
+      "vim-pandoc/vim-pandoc",
       "vim-pandoc-syntax"
     },
     lazy = false,
@@ -151,7 +145,6 @@ require"lazy".setup({
 
   --- Git
   {"tpope/vim-fugitive"}, -- Git integration
-
   {
     'lewis6991/gitsigns.nvim',
     config = configs"gitsigns",
@@ -179,23 +172,13 @@ require"lazy".setup({
   {
     "reedes/vim-pencil",
     ft = prose_fts,
-    build = prose_build,
+    config = configs"writing",
+    dependencies = {
+      "reedes/vim-litecorrect", -- Autocorrect common spelling errors
+      "reedes/vim-lexical", -- Spell check additions + Thesaurus/dictionary completion
+      "dhruvasagar/vim-table-mode", -- Mode for creating and editing tables
+    }
   }, -- Writing mode for vim
-  {
-    "reedes/vim-litecorrect",
-    ft = prose_fts,
-    build = prose_build,
-  }, -- Autocorrect common spelling errors
-  {
-    "reedes/vim-lexical",
-    ft = prose_fts,
-    build = prose_build,
-  }, -- Spell check additions + Thesaurus/dictionary completion
-  {
-    "dhruvasagar/vim-table-mode",
-    ft = prose_fts,
-    build = prose_build,
-  }, -- Mode for creating and editing tables
 
   --- Shortcuts
   {
@@ -211,14 +194,17 @@ require"lazy".setup({
     "numToStr/Comment.nvim",
     config = configs"comment",
   }, -- Comment out text
-  {"norcalli/nvim-colorizer.lua"}, -- Fast color preview
+  {
+    "norcalli/nvim-colorizer.lua",
+    config = configs"colorizer",
+  }, -- Fast color preview
   {
     "goolord/alpha-nvim",
     config = configs"greeter",
   }, -- Start screen
   {
     "Shatur/neovim-session-manager",
-    config = configs"sessions"
+    config = configs"sessions",
   }, -- Sessions
   {"folke/twilight.nvim"},
   {
@@ -255,31 +241,20 @@ require"lazy".setup({
   }, -- Remember colorscheme
   {
     "SmiteshP/nvim-navic",
-    config = function()
-      require("nvim-navic").setup({ separator = " ", highlight = true, depth_limit = 5 })
-    end,
+    config = configs"navic",
     dependencies = "neovim/nvim-lspconfig",
     lazy = false,
   },
   {
     "nvim-lualine/lualine.nvim",
     config = configs"lualine",
-    dependencies = { "kyazdani42/nvim-web-devicons" }
+    dependencies = {"kyazdani42/nvim-web-devicons"}
   },
 
   --- Tools
-  {"vim-scripts/Vimball"}, -- Make and unzip vimballs
   {"skywind3000/asyncrun.vim"}, -- Run shell commands in async
   {"metakirby5/codi.vim"}, -- Code playground
   {"mbbill/undotree"}, -- View undo tree
-  {
-    "iamcco/markdown-preview.nvim",
-    build = "cd app && npm install",
-    init = function()
-      vim.g.mkdp_filetyes = { "markdown", "rmd" }
-    end,
-    ft = { "markdown", "rmd" }
-  }, -- Preview markdown while it is written ~ Replace with pandoc
   {
     "rcarriga/nvim-notify",
     config = configs"notify",
@@ -292,6 +267,4 @@ require"lazy".setup({
       ":call nvim_ghost#installer#install()"
     }
   },
-
-  {"vim-scripts/dbext.vim"}, -- Allow for connecting to databases
 })

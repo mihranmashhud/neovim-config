@@ -47,7 +47,7 @@ local on_attach = function(client, bufnr)
   print("LSP started.")
 
   -- Mappings
-  vim.keymap.set("n", "K", ":Lspsaga hover_doc<CR>", { silent = true, desc = "Hover doc" })
+  vim.keymap.set("n", "K", vim.lsp.buf.hover, { silent = true, desc = "Hover doc" })
   vim.keymap.set("n", "gd", vim.lsp.buf.definition, { silent = true, desc = "Go to definition" })
   vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { silent = true, desc = "Go to declaration" })
   vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { silent = true, desc = "Go to implementation" })
@@ -58,9 +58,9 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { silent = true, desc = "Next diagnostic" })
   -- Leader mappings
   set_group_name("<leader>l", "LSP")
-  vim.keymap.set("n", "<leader>lr", ":Lspsaga rename<CR>", { silent = true, desc = "Rename" })
-  vim.keymap.set("n", "<leader>le", ":Lspsaga show_line_diagnostics<CR>", { silent = true, desc = "View line diagnostics" })
-  vim.keymap.set("n", "<leader>la", ":Lspsaga code_action<CR>", { silent = true, desc = "View code actions" })
+  vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, { silent = true, desc = "Rename" })
+  vim.keymap.set("n", "<leader>le", vim.diagnostic.open_float, { silent = true, desc = "View line diagnostics" })
+  vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, { silent = true, desc = "View code actions" })
   vim.keymap.set("n", "<leader>lD", ":ToggleDiag<CR>", { silent = true, desc = "Toggle diagnostics" })
 end
 
