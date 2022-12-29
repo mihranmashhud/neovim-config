@@ -1,5 +1,3 @@
-local map_utils = require 'utils.map'
-local nmap = map_utils.nmap
 local null_ls = require 'null-ls'
 
 null_ls.setup {
@@ -18,11 +16,10 @@ null_ls.setup {
     })
   },
   on_attach = function(client)
-    local opts = {noremap = true, silent = true}
     if client.server_capabilities.documentFormattingProvider then
-      nmap('<space>lF', vim.lsp.buf.formatting, opts, 'Format file')
+      vim.keymap.set('n', '<space>lF', vim.lsp.buf.formatting, { silent = true, desc = "Format file" })
     elseif client.server_capabilities.documentRangeFormattingProvider then
-      nmap('<space>lF', vim.lsp.buf.range_formatting, opts, 'Format file')
+      vim.keymap.set('n', '<space>lF', vim.lsp.buf.range_formatting, { silent = true, desc = "Format file" })
     end
   end
 }

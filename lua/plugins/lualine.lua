@@ -39,19 +39,19 @@ require"lualine".setup{
     lualine_a = {},
     lualine_b = {
       {
-        "filetype",
-        icon_only = true,
-      },
-      "filename",
+        "tabs",
+        mode = 2,
+      }
     },
     lualine_c = {
     },
     lualine_x = {},
     lualine_y = {
       {
-        "tabs",
-        mode = 2,
-      }
+        "filetype",
+        icon_only = true,
+      },
+      "filename",
     },
     lualine_z = {},
   },

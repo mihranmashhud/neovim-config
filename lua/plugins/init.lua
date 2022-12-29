@@ -19,17 +19,18 @@ local function configs(module)
 end
 
 local prose_fts = {"markdown", "pandoc", "latex", "mkd"}
-local prose_run = function () require"plugins.writing" end
+local prose_build = function () require"plugins.writing" end
 
 require"lazy".setup({
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    config = configs"nvim-treesitter",
+    config = configs"treesitter",
     commit = "4cccb6f494eb255b32a290d37c35ca12584c74d0",
     dependencies = {
       "windwp/nvim-ts-autotag",
       "nvim-treesitter/nvim-treesitter-textobjects",
+      "nvim-treesitter/playground",
       "JoosepAlviste/nvim-ts-context-commentstring",
     }
   },
@@ -46,7 +47,7 @@ require"lazy".setup({
 
   {
     "VonHeikemen/lsp-zero.nvim",
-    config = configs"nvim-lsp",
+    config = configs"lsp",
     dependencies = {
       -- LSP Support
       "neovim/nvim-lspconfig",
@@ -76,26 +77,27 @@ require"lazy".setup({
 
       -- Customization
       "onsails/lspkind-nvim",
+      "SmiteshP/nvim-navic",
     }
   },
   {
     "folke/trouble.nvim",
-    config = true,
-    dependencies = "kyazdani42/nvim-web-devicons",
+    config = configs"trouble",
+    dependencies = {"kyazdani42/nvim-web-devicons"},
   }, -- Diagnostics management
-  "liuchengxu/vista.vim", -- Tag viewer
+  {"liuchengxu/vista.vim"}, -- Tag viewer
   {
     "tami5/lspsaga.nvim",
     config = configs"saga",
   }, -- LSP UI
   {
     "nvim-tree/nvim-tree.lua",
-    dependencies = {{"kyazdani42/nvim-web-devicons"}},
+    dependencies = {"kyazdani42/nvim-web-devicons"},
     config = configs"nvim-tree",
   }, -- Explorer
   {
     "mfussenegger/nvim-dap",
-    config = configs"nvim-dap",
+    config = configs"dap",
     dependencies = {
       "rcarriga/nvim-dap-ui", -- DAP UI
       "mxsdev/nvim-dap-vscode-js", -- JS DAP
@@ -115,10 +117,6 @@ require"lazy".setup({
     },
   }, -- Telescope DAP plugin
   {
-    "chipsenkbeil/distant.nvim",
-    config = configs"distant",
-  },
-  {
     "WhoIsSethDaniel/toggle-lsp-diagnostics.nvim",
     dependencies = {"neovim/nvim-lspconfig"},
   },
@@ -129,28 +127,34 @@ require"lazy".setup({
   }, -- Non-LSP sources
   {
     "MunifTanjim/exrc.nvim",
+    config = configs"exrc",
     dependencies = {"MunifTanjim/nui.nvim"},
   }, -- Project local settings.
 
   --- Language specific
-  {"vim-pandoc/vim-pandoc", ft = {"pandoc", "rmd"}}, -- Pandoc integration
-  {"alx741/vim-stylishask"}, -- Prettify Haskell
+  {
+    "vim-pandoc/vim-pandoc",
+    lazy = false
+  }, -- Pandoc integration
   {
     "jalvesaq/Nvim-R",
     branch = "stable",
   }, -- R editing support
   {
     "vim-pandoc/vim-rmarkdown",
-    dependencies = {{"vim-pandoc/vim-pandoc"}, {"vim-pandoc-syntax"}},
-    ft = {"rmd"}
+    dependencies = {
+      "vim-pandoc/vim-pandoc", 
+      "vim-pandoc-syntax"
+    },
+    lazy = false,
   }, -- Pandoc filetype
-  {"mfussenegger/nvim-jdtls"},
 
   --- Git
   {"tpope/vim-fugitive"}, -- Git integration
+
   {
-    "airblade/vim-gitgutter",
-    config = configs"gitgutter",
+    'lewis6991/gitsigns.nvim',
+    config = configs"gitsigns",
   }, -- Git changes in gutter
 
   --- Syntax
@@ -175,26 +179,25 @@ require"lazy".setup({
   {
     "reedes/vim-pencil",
     ft = prose_fts,
-    run = prose_run,
+    build = prose_build,
   }, -- Writing mode for vim
   {
     "reedes/vim-litecorrect",
     ft = prose_fts,
-    run = prose_run,
+    build = prose_build,
   }, -- Autocorrect common spelling errors
   {
     "reedes/vim-lexical",
     ft = prose_fts,
-    run = prose_run,
+    build = prose_build,
   }, -- Spell check additions + Thesaurus/dictionary completion
   {
     "dhruvasagar/vim-table-mode",
     ft = prose_fts,
-    run = prose_run,
+    build = prose_build,
   }, -- Mode for creating and editing tables
 
   --- Shortcuts
-  {"vim-scripts/BufOnly.vim"}, -- Remove all buffers except current focd
   {
     "kylechui/nvim-surround",
     config = true,
@@ -217,7 +220,7 @@ require"lazy".setup({
     "Shatur/neovim-session-manager",
     config = configs"sessions"
   }, -- Sessions
-  "folke/twilight.nvim",
+  {"folke/twilight.nvim"},
   {
     "folke/which-key.nvim",
     config = configs"which-key",
@@ -241,9 +244,15 @@ require"lazy".setup({
     "xiyaowong/nvim-transparent",
     config = configs"transparent",
   }, -- Enable terminal transparency.
-  "ghifarit53/tokyonight-vim", -- Tokyonight theme
-  "rebelot/kanagawa.nvim", -- kanagawa theme
-  "raddari/last-color.nvim", -- Remember colorscheme
+  {
+    "ghifarit53/tokyonight-vim",
+    config = configs"tokyonight",
+  }, -- Tokyonight theme
+  {"rebelot/kanagawa.nvim"}, -- kanagawa theme
+  {
+    "raddari/last-color.nvim",
+    config = configs"last-color",
+  }, -- Remember colorscheme
   {
     "SmiteshP/nvim-navic",
     config = function()
@@ -257,18 +266,12 @@ require"lazy".setup({
     config = configs"lualine",
     dependencies = { "kyazdani42/nvim-web-devicons" }
   },
-  -- {
-  --   "rafcamlet/tabline-framework.nvim",
-  --   dependencies = "kyazdani42/nvim-web-devicons",
-  --   config = configs"tabline",
-  -- },
-  "ngscheurich/iris.nvim",
 
   --- Tools
-  "vim-scripts/Vimball", -- Make and unzip vimballs
-  "skywind3000/asyncrun.vim", -- Run shell commands in async
-  "metakirby5/codi.vim", -- Code playground
-  "mbbill/undotree", -- View undo tree
+  {"vim-scripts/Vimball"}, -- Make and unzip vimballs
+  {"skywind3000/asyncrun.vim"}, -- Run shell commands in async
+  {"metakirby5/codi.vim"}, -- Code playground
+  {"mbbill/undotree"}, -- View undo tree
   {
     "iamcco/markdown-preview.nvim",
     build = "cd app && npm install",
@@ -285,10 +288,10 @@ require"lazy".setup({
   --- Browser
   {
     "subnut/nvim-ghost.nvim",
-    run = {
+    build = {
       ":call nvim_ghost#installer#install()"
     }
   },
 
-  "vim-scripts/dbext.vim", -- Allow for connecting to databases
+  {"vim-scripts/dbext.vim"}, -- Allow for connecting to databases
 })

@@ -1,5 +1,6 @@
 -- LSP configuration
 local lsp = require"lsp-zero"
+
 lsp.set_preferences{
   suggest_lsp_servers = true,
   setup_servers_on_start = true,
@@ -36,10 +37,9 @@ lsp.ensure_installed{
   "yamlls",
 }
 
-local navic = require("nvim-navic")
-local map_utils = require"utils.map"
-local nmap = map_utils.nmap
-local set_group_name = require("utils.map").set_group_name
+local navic = require"nvim-navic"
+local set_group_name = require"general.keymap".set_group_name
+
 local on_attach = function(client, bufnr)
   if client.server_capabilities.documentSymbolProvider then
     navic.attach(client, bufnr)
@@ -47,22 +47,21 @@ local on_attach = function(client, bufnr)
   print("LSP started.")
 
   -- Mappings
-  local opts = { noremap=true, silent=true }
-  nmap("K", ":Lspsaga hover_doc<CR>", opts, "Hover doc")
-  nmap("gd", vim.lsp.buf.definition, opts, "Go to definition")
-  nmap("gD", vim.lsp.buf.declaration, opts, "Go to declaration")
-  nmap("gi", vim.lsp.buf.implementation, opts, "Go to implementation")
-  nmap("go", vim.lsp.buf.definition, opts, "Go to definition")
-  nmap("gr", vim.lsp.buf.references, opts, "Go to references")
-  nmap("gs", vim.lsp.buf.signature_help, opts, "Show signature help")
-  nmap("]d", vim.lsp.diagnostic.goto_next, opts, "Prev diagnostic")
-  nmap("[d", vim.lsp.diagnostic.goto_prev, opts, "Next diagnostic")
+  vim.keymap.set("n", "K", ":Lspsaga hover_doc<CR>", { silent = true, desc = "Hover doc" })
+  vim.keymap.set("n", "gd", vim.lsp.buf.definition, { silent = true, desc = "Go to definition" })
+  vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { silent = true, desc = "Go to declaration" })
+  vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { silent = true, desc = "Go to implementation" })
+  vim.keymap.set("n", "go", vim.lsp.buf.definition, { silent = true, desc = "Go to definition" })
+  vim.keymap.set("n", "gr", vim.lsp.buf.references, { silent = true, desc = "Go to references" })
+  vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, { silent = true, desc = "Show signature help" })
+  vim.keymap.set("n", "]d", vim.lsp.diagnostic.goto_next, { silent = true, desc = "Prev diagnostic" })
+  vim.keymap.set("n", "[d", vim.lsp.diagnostic.goto_prev, { silent = true, desc = "Next diagnostic" })
   -- Leader mappings
   set_group_name("<leader>l", "LSP")
-  nmap("<leader>lr", ":Lspsaga rename<CR>", opts, "Rename")
-  nmap("<leader>le", ":Lspsaga show_line_diagnostics<CR>", opts, "View line diagnostics")
-  nmap("<leader>la", ":Lspsaga code_action<CR>", opts, "View code actions")
-  nmap("<leader>lD", ":ToggleDiag<CR>", opts, "Toggle diagnostics")
+  vim.keymap.set("n", "<leader>lr", ":Lspsaga rename<CR>", { silent = true, desc = "Rename" })
+  vim.keymap.set("n", "<leader>le", ":Lspsaga show_line_diagnostics<CR>", { silent = true, desc = "View line diagnostics" })
+  vim.keymap.set("n", "<leader>la", ":Lspsaga code_action<CR>", { silent = true, desc = "View code actions" })
+  vim.keymap.set("n", "<leader>lD", ":ToggleDiag<CR>", { silent = true, desc = "Toggle diagnostics" })
 end
 
 lsp.on_attach(on_attach)
@@ -73,6 +72,7 @@ lsp.setup()
 
 -- Completion
 local tabnine = require"cmp_tabnine.config"
+
 tabnine:setup({
   max_lines = 1000;
   max_num_results = 20;
@@ -89,6 +89,7 @@ end
 local cmp = require"cmp"
 local luasnip = require("luasnip")
 local cmp_autopairs = require"nvim-autopairs.completion.cmp"
+
 cmp.setup(lsp.defaults.cmp_config({
   mapping = cmp.mapping.preset.insert({
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),

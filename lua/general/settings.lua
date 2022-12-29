@@ -1,5 +1,3 @@
---- Global
-
 vim.opt.autoindent = true                                             -- Indent always
 vim.opt.autoread = true                                               -- Autoread file changes
 vim.opt.background = 'dark'                                           -- Keep dark if it ain't transparent
@@ -42,7 +40,7 @@ vim.opt.termguicolors = true                                          -- Give me
 vim.opt.timeoutlen = 500                                              -- Faster timeout
 vim.opt.undodir = vim.fn.getenv('HOME')..'/.local/share/nvim/undodir' -- Where to place undo files
 vim.opt.undofile = true                                               -- Track those changes!
-vim.opt.updatetime = 300                                              -- Faster completion
+vim.opt.updatetime = 100                                              -- Faster completion
 vim.opt.virtualedit = 'onemore'                                       -- It feels better
 vim.opt.whichwrap = '<,>,h,l,[,]'                                     -- Wrap the cursor around
 vim.opt.wrap = false                                                  -- Do not wrap the text, it's ugly

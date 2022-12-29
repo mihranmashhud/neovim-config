@@ -38,13 +38,18 @@ function debug.load_file()
 end
 
 -- pprint
-function vim.pprint(val)
+function _G.pprint(val)
   print(vim.inspect(val))
 end
--- Reload
-function Reload(modname)
-  package.loaded[modname] = nil
-  require(modname)
+
+-- Reload Configuration
+function _G.reload_config()
+  for name, _ in pairs(package.loaded) do
+    if name:match('^cnull') then
+      package.loaded[name] = nil
+    end
+  end
+  dofile(vim.env.MYVIMRC)
 end
 
 return debug
