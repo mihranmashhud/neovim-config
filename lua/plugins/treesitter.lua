@@ -13,7 +13,6 @@ require'nvim-treesitter.configs'.setup{
     "dart",
     "dockerfile",
     "graphql",
-    "help",
     "html",
     "java",
     "javascript",

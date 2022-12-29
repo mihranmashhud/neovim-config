@@ -20,7 +20,8 @@ end
 
 local prose_fts = {"markdown", "pandoc", "latex", "mkd"}
 
-require"lazy".setup({
+-- Plugins
+require"lazy".setup{
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
@@ -277,4 +278,4 @@ require"lazy".setup({
       ":call nvim_ghost#installer#install()"
     }
   },
-})
+}
