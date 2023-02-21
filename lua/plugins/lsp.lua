@@ -1,5 +1,7 @@
 -- LSP configuration
 local lsp = require"lsp-zero"
+local lsp_capabilities = require"cmp_nvim_lsp".default_capabilities()
+local lspconfig = require"lspconfig"
 
 lsp.set_preferences{
   suggest_lsp_servers = true,
@@ -37,7 +39,6 @@ local on_attach = function(client, bufnr)
   if client.server_capabilities.documentSymbolProvider then
     navic.attach(client, bufnr)
   end
-  print("LSP started.")
 
   -- Mappings
   vim.keymap.set("n", "K", vim.lsp.buf.hover,
@@ -76,6 +77,12 @@ local on_attach = function(client, bufnr)
 end
 
 lsp.on_attach(on_attach)
+
+-- Setup servers not handled by lsp-zero
+lspconfig.metals.setup({
+  on_attach = on_attach,
+  capabilities = lsp_capabilities,
+})
 
 lsp.nvim_workspace()
 
