@@ -5,6 +5,6 @@ require"general.keymap"
 -- Highlights
 require"general.highlights"
 -- Autocmds
-require"general.autocmds"
+require"general.commands"
 -- Debug
 require"general.debug"
