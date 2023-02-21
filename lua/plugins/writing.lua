@@ -1,10 +1,8 @@
-local autocmd_utils = require("utils/autocmd")
-local autocmd = autocmd_utils.autocmd
-local nnoremap = require"utils.map".nnoremap
+local autocmd = vim.api.nvim_create_autocmd
 
-autocmd("BufNewfile,BufRead *.Rmd set filetype=markdown")
-autocmd("BufNewfile,BufRead *.md set filetype=markdown")
-autocmd("BufNewfile,BufRead *.md set spell")
+autocmd("BufNewfile,BufRead",
+        { pattern = "*.Rmd", command = "set filetype=markdown" })
+autocmd("BufNewfile,BufRead", { pattern = "*.md", command = "set spell" })
 
 -- Init writing plugins
 vim.fn["pencil#init"]()
@@ -16,4 +14,5 @@ vim.g["pencil#conceallevel"] = 1
 vim.g["pencil#textwidth"] = 80
 vim.g["lexical#spelllang"] = { "en_us", "en_ca" }
 
-nnoremap("<leader>ap", ":PencilToggle", { silent = true }, "toggle pencil")
+vim.keymap.set("n", "<leader>ap", ":PencilToggle<CR>",
+               { silent = true, desc = "toggle pencil" })
