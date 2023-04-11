@@ -22,7 +22,7 @@ lsp.ensure_installed{
   "julials",
   "svelte",
   "vuels",
-  "sumneko_lua",
+  "lua_ls",
   "solargraph",
   "jdtls",
   "emmet_ls",

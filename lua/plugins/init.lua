@@ -28,7 +28,6 @@ require"lazy".setup{
     dependencies = {
       "windwp/nvim-ts-autotag",
       "nvim-treesitter/nvim-treesitter-textobjects",
-      "nvim-treesitter/playground",
       "JoosepAlviste/nvim-ts-context-commentstring",
     },
   },
@@ -129,7 +128,7 @@ require"lazy".setup{
 
   --- Language specific
   { "vim-pandoc/vim-pandoc", lazy = false }, -- Pandoc integration
-  { "jalvesaq/Nvim-R", branch = "stable" }, -- R editing support
+  -- { "jalvesaq/Nvim-R", branch = "stable" }, -- R editing support
   {
     "vim-pandoc/vim-rmarkdown",
     dependencies = { "vim-pandoc/vim-pandoc", "vim-pandoc-syntax" },
@@ -202,6 +201,5 @@ require"lazy".setup{
   { "rcarriga/nvim-notify", config = configs"notify" }, -- Popup notify
 
   --- Browser
-  { "subnut/nvim-ghost.nvim",
-  build = { ":call nvim_ghost#installer#install()" } },
+  -- { "subnut/nvim-ghost.nvim" },
 }
