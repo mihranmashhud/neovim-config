@@ -3,6 +3,7 @@ local lsp = require"lsp-zero"
 local lsp_capabilities = require"cmp_nvim_lsp".default_capabilities()
 local lspconfig = require"lspconfig"
 
+
 lsp.set_preferences{
   suggest_lsp_servers = true,
   setup_servers_on_start = true,
@@ -13,6 +14,14 @@ lsp.set_preferences{
   call_servers = "local",
   sign_icons = { error = " ", warn = " ", hint = " ", info = " " },
 }
+
+vim.diagnostic.config{
+  virtual_text = false,
+  float = {
+    border = "rounded",
+    source = "always",
+  }
+} -- Do this before lsp zero configuration
 
 lsp.ensure_installed{
   "pyright",
@@ -198,3 +207,8 @@ cmp.setup.cmdline(":", {
 })
 
 cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+
+return {
+  on_attach = on_attach,
+  capabilities = lsp_capabilities,
+}
