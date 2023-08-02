@@ -24,11 +24,11 @@ require"lazy".setup{
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     config = configs"treesitter",
-    commit = "4cccb6f494eb255b32a290d37c35ca12584c74d0",
     dependencies = {
       "windwp/nvim-ts-autotag",
       "nvim-treesitter/nvim-treesitter-textobjects",
       "JoosepAlviste/nvim-ts-context-commentstring",
+      -- "nvim-treesitter/playground",
     },
   },
   {
@@ -134,6 +134,11 @@ require"lazy".setup{
     dependencies = { "vim-pandoc/vim-pandoc", "vim-pandoc-syntax" },
     lazy = false,
   }, -- Pandoc filetype
+  {
+    "simrat39/rust-tools.nvim",
+    config = configs"rust-tools",
+    dependencies = { "VonHeikemen/lsp-zero.nvim" }
+  },
 
   --- Git
   { "tpope/vim-fugitive" }, -- Git integration
@@ -174,6 +179,7 @@ require"lazy".setup{
   { "folke/zen-mode.nvim", config = configs"zen-mode" }, -- Zen mode
   { "windwp/nvim-autopairs", config = configs"autopairs" }, -- Auto pair brackets
   { "godlygeek/tabular" }, -- Align text easily
+  { "Pocco81/auto-save.nvim", config = configs"autosave" }, -- Auto save
 
   --- Look & Feel
   { "lukas-reineke/indent-blankline.nvim", config = configs"indentline" }, -- Indent lines
@@ -181,6 +187,7 @@ require"lazy".setup{
   { "xiyaowong/nvim-transparent", config = configs"transparent" }, -- Enable terminal transparency.
   { "ghifarit53/tokyonight-vim", config = configs"tokyonight" }, -- Tokyonight theme
   { "rebelot/kanagawa.nvim" }, -- kanagawa theme
+  { "catppuccin/nvim", name = "catppuccin" }, -- catppuccin theme
   { "raddari/last-color.nvim", config = configs"last-color" }, -- Remember colorscheme
   {
     "SmiteshP/nvim-navic",
