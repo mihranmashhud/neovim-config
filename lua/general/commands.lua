@@ -4,6 +4,8 @@ local command = vim.api.nvim_create_user_command
 local set_var = vim.api.nvim_set_var
 local get_var = vim.api.nvim_get_var
 
+-- This is for non-plugin specific user commands and autocmds
+
 -- Highlight on yank
 local group = augroup("highlight_yank", { clear = true })
 autocmd("TextYankPost", {
@@ -12,20 +14,3 @@ autocmd("TextYankPost", {
   end,
   group = group,
 })
-
-set_var("formatonsave", false)
-
--- Format on Save
-autocmd("BufWritePre", {
-  pattern = "",
-  callback = function(ev)
-    local formatonsave = get_var("formatonsave")
-    if formatonsave then vim.lsp.buf.format({ bufnr = ev.buf }) end
-  end,
-})
-
-command("FormatOnSave", function()
-  local formatonsave = get_var("formatonsave")
-  set_var("formatonsave", not formatonsave)
-  print("let formatonsave = v:" .. tostring(not formatonsave))
-end, {})
