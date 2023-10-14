@@ -72,7 +72,11 @@ require"lazy".setup({
       -- Customization
       "onsails/lspkind-nvim",
       "SmiteshP/nvim-navic",
-      {"j-hui/fidget.nvim", config = true},
+      {
+        "j-hui/fidget.nvim", 
+        tag = "legacy",
+        config = true,
+      },
     },
   },
   {
