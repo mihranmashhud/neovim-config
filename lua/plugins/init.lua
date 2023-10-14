@@ -33,13 +33,13 @@ require"lazy".setup({
   },
   {
     "nvim-telescope/telescope.nvim",
+    branch = '0.1.x',
     dependencies = {
       { "nvim-lua/popup.nvim" },
       { "nvim-lua/plenary.nvim" },
       { "nvim-telescope/telescope-fzy-native.nvim" },
     },
     config = configs"telescope",
-    version = "0.1.0",
   }, -- Telescope
 
   {
