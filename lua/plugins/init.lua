@@ -116,10 +116,9 @@ require"lazy".setup({
     dependencies = { "neovim/nvim-lspconfig" },
   },
   {
-    "jose-elias-alvarez/null-ls.nvim",
-    config = configs"null-ls",
-    dependencies = { "nvim-lua/plenary.nvim" },
-  }, -- Non-LSP sources
+    "stevearc/conform.nvim",
+    config = configs"formatting",
+  },
   {
     "MunifTanjim/exrc.nvim",
     config = configs"exrc",
