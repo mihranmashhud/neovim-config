@@ -1,6 +1,6 @@
 local wk = require"which-key"
 wk.setup{
-  window = { border = "single" },
+  window = { border = "rounded" },
   spelling = { enabled = true, suggestions = 20 },
   disable = { buftypes = {}, filetypes = { "TelescopePrompt" } },
 }
