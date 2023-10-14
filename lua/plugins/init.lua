@@ -110,7 +110,7 @@ require"lazy".setup({
       "mxsdev/nvim-dap-vscode-js", -- JS DAP
       {
         "microsoft/vscode-js-debug",
-        build = "npm install --legacy-peer-deps && npm run compile",
+        build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
       }, -- JS DAP adapter
       "mfussenegger/nvim-dap-python", -- Python DAP
       "theHamsta/nvim-dap-virtual-text", -- DAP virtual text
