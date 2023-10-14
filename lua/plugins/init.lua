@@ -19,7 +19,7 @@ end
 local prose_fts = { "markdown", "pandoc", "latex", "mkd" }
 
 -- Plugins
-require"lazy".setup{
+require"lazy".setup({
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
@@ -209,4 +209,8 @@ require"lazy".setup{
 
   --- Browser
   -- { "subnut/nvim-ghost.nvim" },
-}
+}, {
+    ui = {
+      border = "rounded",
+    },
+  })
