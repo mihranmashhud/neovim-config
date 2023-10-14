@@ -91,6 +91,13 @@ require"lazy".setup({
     },
   }, -- Explorer
   {
+    "antosha417/nvim-lsp-file-operations",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-neo-tree/neo-tree.nvim",
+    }
+  },
+  {
     "mfussenegger/nvim-dap",
     config = configs"dap",
     dependencies = {
