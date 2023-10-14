@@ -3,42 +3,17 @@ local lsp = require"lsp-zero"
 local lsp_capabilities = require"cmp_nvim_lsp".default_capabilities()
 local lspconfig = require"lspconfig"
 
-
-lsp.set_preferences{
-  suggest_lsp_servers = true,
-  setup_servers_on_start = true,
-  set_lsp_keymaps = false,
-  configure_diagnostics = true,
-  cmp_capabilities = true,
-  manage_nvim_cmp = false,
-  call_servers = "local",
-  sign_icons = { error = " ", warn = " ", hint = " ", info = " " },
-}
-
 vim.diagnostic.config{
   virtual_text = false,
-  float = {
-    border = "rounded",
-    source = "always",
-  }
 } -- Do this before lsp zero configuration
 
-lsp.ensure_installed{
-  "pyright",
-  "vimls",
-  "clangd",
-  "tsserver",
-  "julials",
-  "svelte",
-  "vuels",
-  "lua_ls",
-  "solargraph",
-  "jdtls",
-  "emmet_ls",
-  "cssls",
-  "stylelint_lsp",
-  "tailwindcss",
-  "yamlls",
+vim.g.lsp_zero_ui_float_border = "rounded"
+
+lsp.set_sign_icons{
+  error = " ",
+  warn = " ",
+  hint = " ",
+  info = " ",
 }
 
 local navic = require"nvim-navic"
@@ -78,24 +53,29 @@ local on_attach = function(client, bufnr)
                  { silent = true, desc = "View code actions" })
   vim.keymap.set("n", "<leader>lD", ":ToggleDiag<CR>",
                  { silent = true, desc = "Toggle diagnostics" })
-  if client.supports_method("textDocument/formatting") then
-    vim.keymap.set("n", "<space>lF",
-                   function() vim.lsp.buf.format({ bufnr = bufnr }) end,
-                   { silent = true, desc = "Format file" })
-  end
+  vim.keymap.set("n", "<space>lF", function() require"conform".format({ bufnr = bufnr }) end,
+                 { silent = true, desc = "Format file" })
 end
 
 lsp.on_attach(on_attach)
 
--- Setup servers not handled by lsp-zero
-lspconfig.metals.setup({
-  on_attach = on_attach,
-  capabilities = lsp_capabilities,
-})
-
-lsp.nvim_workspace()
-
-lsp.setup()
+require"mason-lspconfig".setup {
+  handlers = {
+    lsp.default_setup,
+    lua_ls = function()
+      local lua_opts = lsp.nvim_lua_ls()
+      lspconfig.lua_ls.setup(lua_opts)
+    end,
+    nil_ls = function()
+      lspconfig.nil_ls.setup({
+        on_attach = on_attach,
+        -- capabilities = vim.tbl_deep_extend(lsp_capabilities,
+        --   { workspace = { didChangeWatchedFiles = { dynamicRegistration = true } } }),
+        settings = { formatting = { command = { "nixpkgs-fmt" }} }
+      })
+    end
+  },
+}
 
 -- Completion
 local tabnine = require"cmp_tabnine.config"

@@ -49,7 +49,7 @@ require"lazy".setup({
     dependencies = {
       -- LSP Support
       "neovim/nvim-lspconfig",
-      "williamboman/mason.nvim",
+      {"williamboman/mason.nvim", config = configs"mason"},
       "williamboman/mason-lspconfig.nvim",
 
       -- Autocompletion
