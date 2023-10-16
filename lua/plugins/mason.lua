@@ -8,7 +8,6 @@ local ensure_installed = {
   "svelte",
   "vuels",
   "lua_ls",
-  "solargraph",
   "jdtls",
   "emmet_ls",
   "cssls",
