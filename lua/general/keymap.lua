@@ -178,8 +178,8 @@ vim.keymap.set("n", "<leader>gd", ":Git diff<CR>",
                { silent = true, desc = "diff" })
 vim.keymap.set("n", "<leader>gD", ":Gdiffsplit<CR>",
                { silent = true, desc = "diff split" })
-vim.keymap
-  .set("n", "<leader>gg", ":GGrep<CR>", { silent = true, desc = "grep" })
+vim.keymap.set("n", "<leader>gg", ":GGrep<CR>",
+               { silent = true, desc = "grep" })
 vim.keymap.set("n", "<leader>gG", ":Gstatus<CR>",
                { silent = true, desc = "status" })
 vim.keymap.set("n", "<leader>gt", function() require"gitsigns".toggle_signs() end,
