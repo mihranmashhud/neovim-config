@@ -16,8 +16,6 @@ local function configs(module)
   return function() require("plugins." .. module) end
 end
 
-local prose_fts = { "markdown", "pandoc", "latex", "mkd" }
-
 -- Plugins
 require"lazy".setup({
   {
