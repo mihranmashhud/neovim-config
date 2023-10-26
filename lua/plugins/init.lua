@@ -181,7 +181,6 @@ require"lazy".setup({
   --- QOL
   { "yuttie/comfortable-motion.vim" }, -- Smooth scrolling
   { "numToStr/Comment.nvim", config = configs"comment" }, -- Comment out text
-  { "norcalli/nvim-colorizer.lua", config = configs"colorizer" }, -- Fast color preview
   { "goolord/alpha-nvim", config = configs"greeter" }, -- Start screen
   { "Shatur/neovim-session-manager", config = configs"sessions" }, -- Sessions
   { "folke/twilight.nvim" },
@@ -215,6 +214,7 @@ require"lazy".setup({
   { "metakirby5/codi.vim" }, -- Code playground
   { "mbbill/undotree" }, -- View undo tree
   { "rcarriga/nvim-notify", config = configs"notify" }, -- Popup notify
+  { "uga-rosa/ccc.nvim", config = configs"ccc" }, --- Color picker and highlighter
 }, {
     ui = {
       border = "rounded",

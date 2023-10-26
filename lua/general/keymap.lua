@@ -83,8 +83,8 @@ vim.keymap.set("n", "<leader>k", ":lprev<CR>",
                { silent = true, desc = "loc prev" })
 
 set_group_name("<leader>a", "Actions")
-vim.keymap.set("n", "<leader>ac", ":ColorizerToggle<CR>",
-               { silent = true, desc = "colorizer" })
+vim.keymap.set("n", "<leader>ac", ":CccHighlighterToggle<CR>",
+               { silent = true, desc = "color highlighter" })
 vim.keymap.set("n", "<leader>ae", ":Neotree toggle reveal<CR>",
                { silent = true, desc = "explorer" })
 vim.keymap.set("n", "<leader>au", ":UndotreeToggle<CR>",
