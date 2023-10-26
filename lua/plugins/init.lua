@@ -81,14 +81,14 @@ require"lazy".setup({
   {
     "folke/trouble.nvim",
     config = configs"trouble",
-    dependencies = { "kyazdani42/nvim-web-devicons" },
+    dependencies = { "nvim-tree/nvim-web-devicons" },
   }, -- Diagnostics management
   {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x",
     dependencies = {
       "nvim-lua/plenary.nvim",
-      "kyazdani42/nvim-web-devicons",
+      "nvim-tree/nvim-web-devicons",
       "MunifTanjim/nui.nvim",
       { "s1n7ax/nvim-window-picker", config = configs"window-picker" },
     },
@@ -195,8 +195,8 @@ require"lazy".setup({
   {
     "nvim-lualine/lualine.nvim",
     config = configs"lualine",
-    dependencies = { "kyazdani42/nvim-web-devicons" },
-  },
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+  }, -- Statusline
 
   --- Tools
   { "skywind3000/asyncrun.vim" }, -- Run shell commands in async
