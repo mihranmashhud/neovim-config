@@ -182,9 +182,12 @@ require"lazy".setup({
   { "lukas-reineke/indent-blankline.nvim", config = configs"indentline" }, -- Indent lines
   "lambdalisue/nerdfont.vim", -- Nerdfont handler for vim
   { "xiyaowong/nvim-transparent", config = configs"transparent" }, -- Enable terminal transparency.
-  { "ghifarit53/tokyonight-vim", config = configs"tokyonight" }, -- Tokyonight theme
+  { "ghifarit53/tokyonight-vim", config = configs"tokyonight" }, -- tokyonight theme
   { "rebelot/kanagawa.nvim" }, -- kanagawa theme
   { "catppuccin/nvim", name = "catppuccin" }, -- catppuccin theme
+  { "nyoom-engineering/oxocarbon.nvim" }, -- oxocarbon theme
+  { "bluz71/vim-moonfly-colors" }, -- moonfly theme
+  { "bluz71/vim-nightfly-colors" }, -- nightfly theme
   { "raddari/last-color.nvim", config = configs"last-color" }, -- Remember colorscheme
   {
     "SmiteshP/nvim-navic",
