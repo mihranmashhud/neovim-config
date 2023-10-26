@@ -7,7 +7,7 @@ vim.diagnostic.config{
   virtual_text = false,
 } -- Do this before lsp zero configuration
 
-vim.g.lsp_zero_ui_float_border = "rounded"
+vim.g.lsp_zero_ui_float_border = vim.g.borderstyle
 
 lsp.set_sign_icons{
   error = " ",
@@ -25,7 +25,7 @@ local on_attach = function(client, bufnr)
   end
 
   -- Mappings
-  vim.keymap.set("n", "K", vim.lsp.buf.hover,
+  vim.keymap.set("n", "K", function() require"lspsaga.hover":render_hover_doc{} end,
                  { silent = true, desc = "Hover doc" })
   vim.keymap.set("n", "gd", vim.lsp.buf.definition,
                  { silent = true, desc = "Go to definition" })
@@ -39,21 +39,25 @@ local on_attach = function(client, bufnr)
                  { silent = true, desc = "Go to references" })
   vim.keymap.set("n", "gs", vim.lsp.buf.signature_help,
                  { silent = true, desc = "Show signature help" })
-  vim.keymap.set("n", "]d", vim.diagnostic.goto_next,
+  vim.keymap.set("n", "]d", function() require"lspsaga.diagnostic":goto_prev() end,
                  { silent = true, desc = "Prev diagnostic" })
-  vim.keymap.set("n", "[d", vim.diagnostic.goto_prev,
+  vim.keymap.set("n", "[d", function() require"lspsaga.diagnostic":goto_next() end,
                  { silent = true, desc = "Next diagnostic" })
   -- Leader mappings
   set_group_name("<leader>l", "LSP")
-  vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename,
+  vim.keymap.set("n", "<leader>lr", function() require"lspsaga.rename":lsp_rename{"++project"} end,
                  { silent = true, desc = "Rename" })
-  vim.keymap.set("n", "<leader>le", vim.diagnostic.open_float,
+  vim.keymap.set("n", "<leader>le", function() require"lspsaga.diagnostic.show":show_diagnostics{line = true} end,
                  { silent = true, desc = "View line diagnostics" })
-  vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action,
+  vim.keymap.set("n", "<leader>ld", function() require"lspsaga.diagnostic.show":show_diagnostics{cursor = true} end,
+                 { silent = true, desc = "View cursor diagnostics" })
+  vim.keymap.set("n", "<leader>la", function() require"lspsaga.codeaction":code_action() end,
                  { silent = true, desc = "View code actions" })
   vim.keymap.set("n", "<leader>lD", ":ToggleDiag<CR>",
                  { silent = true, desc = "Toggle diagnostics" })
-  vim.keymap.set("n", "<space>lF", function() require"conform".format({ bufnr = bufnr }) end,
+  vim.keymap.set("n", "<space>lF", ":Format<CR>",
+                 { silent = true, desc = "Format file" })
+  vim.keymap.set("v", "<space>lF", ":Format<CR>",
                  { silent = true, desc = "Format file" })
 end
 
@@ -71,11 +75,13 @@ require"mason-lspconfig".setup {
         on_attach = on_attach,
         -- capabilities = vim.tbl_deep_extend(lsp_capabilities,
         --   { workspace = { didChangeWatchedFiles = { dynamicRegistration = true } } }),
-        settings = { formatting = { command = { "nixpkgs-fmt" }} }
+        settings = { formatting = { command = { "nixpkgs-fmt" } } }
       })
     end
   },
 }
+
+lspconfig.lua_ls.setup(lsp.nvim_lua_ls())
 
 -- Completion
 local tabnine = require"cmp_tabnine.config"

@@ -11,20 +11,11 @@ require"lualine".setup{
   sections = {
     lualine_a = { "mode" },
     lualine_b = { "branch", "diagnostics" },
-    lualine_c = { "filename" },
+    lualine_c = {},
     lualine_x = {
       {
-        function()
-          local navic = require("nvim-navic")
-          local ret = navic.get_location()
-          return ret:len() > 2000 and "navic error" or ret
-        end,
-        cond = function()
-          if package.loaded["nvim-navic"] then
-            local navic = require("nvim-navic")
-            return navic.is_available()
-          end
-        end,
+        "filename",
+        path = 1,
       },
       "filetype",
     },
@@ -39,7 +30,19 @@ require"lualine".setup{
     lualine_y = { { "filetype", icon_only = true }, "filename" },
     lualine_z = {},
   },
-  winbar = {},
+  winbar = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = {
+      "filename",
+      {
+        "navic", color_correction = "dynamic",
+      },
+    },
+    lualine_x = {},
+    lualine_y = {},
+    lualine_z = {},
+  },
   inactive_winbar = {
     lualine_a = {},
     lualine_b = { { "filename", path = 1 } },

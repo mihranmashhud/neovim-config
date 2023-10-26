@@ -71,12 +71,26 @@ require"lazy".setup({
 
       -- Customization
       "onsails/lspkind-nvim",
-      "SmiteshP/nvim-navic",
       {
-        "j-hui/fidget.nvim", 
-        tag = "legacy",
-        config = true,
+        "SmiteshP/nvim-navic",
+        config = configs"navic",
       },
+      {
+        "j-hui/fidget.nvim",
+        tag = "legacy",
+        event = "LspAttach",
+        opts = { text = { spinner = "dots" } },
+      },
+
+      -- QOL
+      {
+        "nvimdev/lspsaga.nvim",
+        config = configs"lspsaga",
+        dependencies = {
+          "nvim-treesitter/nvim-treesitter",
+          "nvim-tree/nvim-web-devicons",
+        },
+      }
     },
   },
   {
@@ -190,12 +204,6 @@ require"lazy".setup({
   { "bluz71/vim-moonfly-colors" }, -- moonfly theme
   { "bluz71/vim-nightfly-colors" }, -- nightfly theme
   { "raddari/last-color.nvim", config = configs"last-color" }, -- Remember colorscheme
-  {
-    "SmiteshP/nvim-navic",
-    config = configs"navic",
-    dependencies = "neovim/nvim-lspconfig",
-    lazy = false,
-  },
   {
     "nvim-lualine/lualine.nvim",
     config = configs"lualine",
