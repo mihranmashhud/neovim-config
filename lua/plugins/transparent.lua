@@ -1,6 +1,6 @@
 local transparent = require"transparent"
 transparent.setup{
-  extra_groups = { 
+  extra_groups = {
     "NormalFloat",
     "TelescopeBorder",
     "FloatermBorder",
