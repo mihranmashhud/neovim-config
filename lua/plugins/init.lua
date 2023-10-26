@@ -12,6 +12,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.runtimepath:prepend(lazypath)
 
+-- Shorthand for require"plugins"..module
 local function configs(module)
   return function() require("plugins." .. module) end
 end
