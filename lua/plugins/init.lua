@@ -161,18 +161,6 @@ require"lazy".setup({
   { "PProvost/vim-markdown-jekyll", lazy = false }, -- YAML front matter highlighting
   { "elkowar/yuck.vim", lazy = false },
 
-  --- Prose editing
-  {
-    "reedes/vim-pencil",
-    ft = prose_fts,
-    config = configs"writing",
-    dependencies = {
-      "reedes/vim-litecorrect", -- Autocorrect common spelling errors
-      "reedes/vim-lexical", -- Spell check additions + Thesaurus/dictionary completion
-      "dhruvasagar/vim-table-mode", -- Mode for creating and editing tables
-    },
-  }, -- Writing mode for vim
-
   --- Shortcuts
   { "kylechui/nvim-surround", config = true }, -- Edit surrounding text
   { "tpope/vim-eunuch" }, -- Sugar on top of shell commands
