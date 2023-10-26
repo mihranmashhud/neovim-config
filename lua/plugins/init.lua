@@ -189,6 +189,7 @@ require"lazy".setup({
   { "tpope/vim-repeat" }, -- Repeat
   { "folke/zen-mode.nvim", config = configs"zen-mode" }, -- Zen mode
   { "windwp/nvim-autopairs", event="InsertEnter", config = configs"autopairs" }, -- Auto pair brackets
+  { "RRethy/nvim-treesitter-endwise" },
   { "godlygeek/tabular" }, -- Align text easily
   { "Pocco81/auto-save.nvim", config = configs"autosave" }, -- Auto save
 

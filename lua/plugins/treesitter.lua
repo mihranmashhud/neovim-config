@@ -41,6 +41,7 @@ require"nvim-treesitter.configs".setup{
   },
   highlight = { enable = true },
   autotag = { enable = true },
+  endwise = { enable = true },
   indent = { enable = true },
   context_commentstring = { enable = true, enable_autocmd = false },
   playground = { enable = true },
