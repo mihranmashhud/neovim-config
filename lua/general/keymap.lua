@@ -73,8 +73,6 @@ vim.keymap.set("n", "<leader>c", ":Codi!!<CR>",
                { silent = true, desc = "live repl" })
 vim.keymap.set("n", "<leader>f", ":Telescope find_files<CR>",
                { silent = true, desc = "files" })
-vim.keymap.set("n", "<leader>z", ":Goyo<CR>",
-               { silent = true, desc = "zen mode" })
 vim.keymap.set("n", "<leader>h", ":noh<CR>",
                { silent = true, desc = "remove search highlight" })
 vim.keymap.set("n", "<leader>q", ":bd<CR>",
@@ -95,6 +93,8 @@ vim.keymap.set("n", "<leader>an", ":DashboardNewFile<CR>",
                { silent = true, desc = "new file" })
 vim.keymap.set("n", "<leader>at", ":Twilight<CR>",
                { silent = true, desc = "twilight" })
+vim.keymap.set("n", "<leader>az", ":ZenMode<CR>",
+               { silent = true, desc = "zen mode" })
 
 set_group_name("<leader>s", "Search")
 vim.keymap.set("n", "<leader>sh", ":Telescope search_history<CR>",
