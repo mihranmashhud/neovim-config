@@ -152,6 +152,17 @@ vim.keymap.set("v", "<leader>xx", function()
   return require("general.debug").execute_visual_selection()
 end, { silent = true, desc = "selection" })
 
+local function next_hunk()
+  if vim.wo.diff then return '<leader>gj' end
+  vim.schedule(function() require"gitsigns".next_hunk() end)
+  return '<Ignore>'
+end
+local function prev_hunk()
+  if vim.wo.diff then return '<leader>gk' end
+  vim.schedule(function() require"gitsigns".prev_hunk() end)
+  return '<Ignore>'
+end
+
 set_group_name("<leader>g", "Git")
 vim.keymap.set("n", "<leader>gA", ":Git add .<CR>",
                { silent = true, desc = "add all" })
@@ -171,19 +182,23 @@ vim.keymap
   .set("n", "<leader>gg", ":GGrep<CR>", { silent = true, desc = "grep" })
 vim.keymap.set("n", "<leader>gG", ":Gstatus<CR>",
                { silent = true, desc = "status" })
-vim.keymap.set("n", "<leader>gt", ":GitGutterSignsToggle<CR>",
+vim.keymap.set("n", "<leader>gt", function() require"gitsigns".toggle_signs() end,
                { silent = true, desc = "toggle signs" })
-vim.keymap.set("n", "<leader>gh", ":GitGutterLineHighlightsToggle<CR>",
+vim.keymap.set("n", "<leader>gh", function() require"gitsigns".toggle_linehl() end,
                { silent = true, desc = "hunk highlight" })
-vim.keymap.set("n", "<leader>gH", "<Plug>(GitGutterPreviewHunk)",
+vim.keymap.set("n", "<leader>gH", function() require"gitsigns".preview_hunk() end,
                { silent = true, desc = "preview hunk" })
-vim.keymap.set("n", "<leader>gj", "<Plug>(GitGutterNextHunk)",
+vim.keymap.set("n", "<leader>gj", next_hunk,
                { silent = true, desc = "next hunk" })
-vim.keymap.set("n", "<leader>gk", "<Plug>(GitGutterPrevHunk)",
+vim.keymap.set("n", "<leader>gk", prev_hunk,
                { silent = true, desc = "previous hunk" })
-vim.keymap.set("n", "<leader>gs", "<Plug>(GitGutterStageHunk)",
+vim.keymap.set("n", "<leader>gs", function() require"gitsigns".stage_hunk() end,
                { silent = true, desc = "stage hunk" })
-vim.keymap.set("n", "<leader>gu", "<Plug>(GitGutterUndoHunk)",
+vim.keymap.set("v", "<leader>gs", function() require"gitsigns".stage_hunk{ vim.fn.line('.'), vim.fn.line('v') } end,
+               { silent = true, desc = "stage hunk" })
+vim.keymap.set("n", "<leader>gu", function() require"gitsigns".reset_hunk() end,
+               { silent = true, desc = "undo hunk" })
+vim.keymap.set("v", "<leader>gu", function() require"gitsigns".reset_hunk{ vim.fn.line('.'), vim.fn.line('v') } end,
                { silent = true, desc = "undo hunk" })
 vim.keymap.set("n", "<leader>gl", ":Git log<CR>",
                { silent = true, desc = "log" })
