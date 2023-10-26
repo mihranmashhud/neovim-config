@@ -1,5 +1,6 @@
 require"lspsaga".setup {
   ui = {
+    border = vim.g.borderstyle,
     lines = { '╰', '├', '│', '─', '╭' },
   },
   rename = {

@@ -6,7 +6,7 @@ require"conform".setup {
   },
   format_on_save = function(bufnr)
     -- Disable with a global or buffer-local variable
-    if not vim.g.autoformat or not vim.b[bufnr].autoformat then
+    if not vim.g.formatonsave or not vim.b[bufnr].formatonsave then
       return
     end
     return { timeout_ms = 500, lsp_fallback = true }
@@ -14,7 +14,7 @@ require"conform".setup {
 }
 
 -- Disable autoformat initially
-vim.g.autoformat = false
+vim.g.formatonsave = false
 
 -- User commands
 vim.api.nvim_create_user_command("Format", function(args)
@@ -31,27 +31,27 @@ end, { range = true })
 
 vim.api.nvim_create_user_command("FormatDisable", function(args)
   if args.bang then
-    vim.g.autoformat = false
+    vim.g.formatonsave = false
   else
     -- Default to current buffer
-    vim.b.autoformat = false
+    vim.b.formatonsave = false
   end
 end, { desc = "Disable autoformat-on-save", bang = true})
 
 vim.api.nvim_create_user_command("FormatEnable", function(args)
   if args.bang then
-    vim.g.autoformat = true
+    vim.g.formatonsave = true
   else
     -- Default to current buffer
-    vim.b.autoformat = true
+    vim.b.formatonsave = true
   end
 end, { desc = "Enable autoformat-on-save", bang = true})
 
 vim.api.nvim_create_user_command("FormatToggle", function(args)
   if args.bang then
-    vim.g.autoformat = not vim.g.autoformat
+    vim.g.formatonsave = not vim.g.formatonsave
   else
     -- Default to current buffer
-    vim.b.autoformat = not vim.b.autoformat
+    vim.b.formatonsave = not vim.b.formatonsave
   end
 end, { desc = "Toggle autoformat-on-save", bang = true})

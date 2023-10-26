@@ -20,7 +20,13 @@ local ensure_installed = {
   "isort",
   "black",
 },
-require"mason".setup{}
+
+---@diagnostic disable-next-line: redundant-value
+require"mason".setup{
+  ui = {
+    border = vim.g.borderstyle,
+  },
+}
 
 local registry = require"mason-registry"
 

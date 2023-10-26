@@ -46,3 +46,6 @@ vim.opt.whichwrap = "<,>,h,l,[,]" -- Wrap the cursor around
 vim.opt.wrap = false -- Do not wrap the text, it's ugly
 
 vim.cmd("filetype plugin on") -- For filetype plugins of course
+
+-- Some extra vars for use in configs
+vim.g.borderstyle = "rounded"

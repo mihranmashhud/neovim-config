@@ -217,6 +217,6 @@ require"lazy".setup({
   { "uga-rosa/ccc.nvim", config = configs"ccc" }, --- Color picker and highlighter
 }, {
     ui = {
-      border = "rounded",
+      border = vim.g.borderstyle,
     },
   })
