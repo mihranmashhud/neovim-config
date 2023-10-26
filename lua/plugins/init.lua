@@ -143,16 +143,15 @@ require"lazy".setup({
   {
     "stevearc/conform.nvim",
     config = configs"formatting",
-  },
+  }, -- Formatting
   {
     "MunifTanjim/exrc.nvim",
     config = configs"exrc",
     dependencies = { "MunifTanjim/nui.nvim" },
-  }, -- Project local settings.
+  }, -- Project local settings
 
   --- Language specific
   { "vim-pandoc/vim-pandoc", lazy = false }, -- Pandoc integration
-  -- { "jalvesaq/Nvim-R", branch = "stable" }, -- R editing support
   {
     "vim-pandoc/vim-rmarkdown",
     dependencies = { "vim-pandoc/vim-pandoc", "vim-pandoc-syntax" },
@@ -195,7 +194,7 @@ require"lazy".setup({
 
   --- Look & Feel
   { "lukas-reineke/indent-blankline.nvim", config = configs"indentline" }, -- Indent lines
-  "lambdalisue/nerdfont.vim", -- Nerdfont handler for vim
+  { "lambdalisue/nerdfont.vim" }, -- Nerdfont handler for vim
   { "xiyaowong/nvim-transparent", config = configs"transparent" }, -- Enable terminal transparency.
   { "ghifarit53/tokyonight-vim", config = configs"tokyonight" }, -- tokyonight theme
   { "rebelot/kanagawa.nvim" }, -- kanagawa theme
@@ -215,9 +214,6 @@ require"lazy".setup({
   { "metakirby5/codi.vim" }, -- Code playground
   { "mbbill/undotree" }, -- View undo tree
   { "rcarriga/nvim-notify", config = configs"notify" }, -- Popup notify
-
-  --- Browser
-  -- { "subnut/nvim-ghost.nvim" },
 }, {
     ui = {
       border = "rounded",
