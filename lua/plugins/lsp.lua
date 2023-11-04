@@ -66,22 +66,11 @@ lsp.on_attach(on_attach)
 require"mason-lspconfig".setup {
   handlers = {
     lsp.default_setup,
-    lua_ls = function()
-      local lua_opts = lsp.nvim_lua_ls()
-      lspconfig.lua_ls.setup(lua_opts)
-    end,
-    nil_ls = function()
-      lspconfig.nil_ls.setup({
-        on_attach = on_attach,
-        -- capabilities = vim.tbl_deep_extend(lsp_capabilities,
-        --   { workspace = { didChangeWatchedFiles = { dynamicRegistration = true } } }),
-        settings = { formatting = { command = { "nixpkgs-fmt" } } }
-      })
-    end
   },
 }
 
 lspconfig.lua_ls.setup(lsp.nvim_lua_ls())
+lspconfig.nixd.setup({on_attach = on_attach, capabilities = lsp_capabilities})
 
 -- Completion
 local tabnine = require"cmp_tabnine.config"
