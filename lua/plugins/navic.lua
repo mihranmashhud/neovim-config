@@ -5,4 +5,11 @@ end
 require"nvim-navic".setup{
   separator = " › ",
   icons = symbol_map,
+  lsp = {
+    auto_attach = true,
+    preference = {
+      "nil_ls",
+      "pyright",
+    }
+  },
 }

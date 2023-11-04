@@ -16,14 +16,9 @@ lsp.set_sign_icons{
   info = " ",
 }
 
-local navic = require"nvim-navic"
 local set_group_name = require"general.keymap".set_group_name
 
 local on_attach = function(client, bufnr)
-  if client.server_capabilities.documentSymbolProvider then
-    navic.attach(client, bufnr)
-  end
-
   -- Mappings
   vim.keymap.set("n", "K", function() require"lspsaga.hover":render_hover_doc{} end,
                  { silent = true, desc = "Hover doc" })
