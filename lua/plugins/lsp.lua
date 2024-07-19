@@ -74,39 +74,39 @@ default_lsp_setup("ccls")
 default_lsp_setup("nil_ls")
 -- default_lsp_setup"nixd"
 
-local user = os.getenv("USER")
-local hostname = vim.fn.hostname()
-lspconfig.nixd.setup({
-	on_attach = on_attach,
-	capabilities = lsp_capabilities,
-	cmd = { "nixd" },
-	settings = {
-		nixd = {
-			nixpkgs = {
-				expr = "import <nixpkgs> { }",
-			},
-			options = {
-				nixos = {
-					expr = '(builtins.getFlake "/home/mihranmashhud/nixos").nixosConfigurations.'
-						.. hostname
-						.. ".options",
-				},
-				home_manager = {
-					expr = '(builtins.getFlake "/home/mihranmashhud/nixos").homeConfigurations."'
-						.. user
-						.. "@"
-						.. hostname
-						.. '".options',
-				},
-			},
-			diagnostic = {
-				suppress = {
-					"sema-escaping-with",
-				},
-			},
-		},
-	},
-})
+-- local user = os.getenv("USER")
+-- local hostname = vim.fn.hostname()
+-- lspconfig.nixd.setup({
+-- 	on_attach = on_attach,
+-- 	capabilities = lsp_capabilities,
+-- 	cmd = { "nixd" },
+-- 	settings = {
+-- 		nixd = {
+-- 			nixpkgs = {
+-- 				expr = "import <nixpkgs> { }",
+-- 			},
+-- 			options = {
+-- 				nixos = {
+-- 					expr = '(builtins.getFlake "/home/mihranmashhud/nixos").nixosConfigurations.'
+-- 						.. hostname
+-- 						.. ".options",
+-- 				},
+-- 				home_manager = {
+-- 					expr = '(builtins.getFlake "/home/mihranmashhud/nixos").homeConfigurations."'
+-- 						.. user
+-- 						.. "@"
+-- 						.. hostname
+-- 						.. '".options',
+-- 				},
+-- 			},
+-- 			diagnostic = {
+-- 				suppress = {
+-- 					"sema-escaping-with",
+-- 				},
+-- 			},
+-- 		},
+-- 	},
+-- })
 
 -- Completion
 local tabnine = require("cmp_tabnine.config")
@@ -175,7 +175,9 @@ cmp.setup(lsp.defaults.cmp_config({
 			cmp.config.compare.exact,
 			cmp.config.compare.score,
 			require("cmp-under-comparator").under,
-			cmp.config.compare.kind,
+			cmp.config.compare.kind,  boot.blacklistedKernelModules = ["rtw88_8821ce"];
+  services.getty.autologinUser = "mihranmashhud";
+  services.openssh.openFirewall = true;
 			cmp.config.compare.sort_text,
 			cmp.config.compare.length,
 			cmp.config.compare.order,
