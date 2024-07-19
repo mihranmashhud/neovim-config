@@ -175,9 +175,7 @@ cmp.setup(lsp.defaults.cmp_config({
 			cmp.config.compare.exact,
 			cmp.config.compare.score,
 			require("cmp-under-comparator").under,
-			cmp.config.compare.kind,  boot.blacklistedKernelModules = ["rtw88_8821ce"];
-  services.getty.autologinUser = "mihranmashhud";
-  services.openssh.openFirewall = true;
+			cmp.config.compare.kind,
 			cmp.config.compare.sort_text,
 			cmp.config.compare.length,
 			cmp.config.compare.order,
