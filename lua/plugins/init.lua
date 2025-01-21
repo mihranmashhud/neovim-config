@@ -1,7 +1,10 @@
 -- Bootstrap lazy.nvim
+-- if vim.g.nix == true then
+-- 	vim.opt.runtimepath:prepend([[lazy.nvim-plugin-path]])
+-- else
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-	vim.fn.system({
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+	local out = vim.fn.system({
 		"git",
 		"clone",
 		"--filter=blob:none",
@@ -9,8 +12,16 @@ if not vim.loop.fs_stat(lazypath) then
 		"https://github.com/folke/lazy.nvim.git",
 		lazypath,
 	})
+	if vim.v.shell_error ~= 0 then
+		vim.api.nvim_echo({
+			{ "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+			{ out, "WarningMsg" },
+			{ "\nPress any key to exit..." },
+		}, true, {})
+	end
 end
 vim.opt.runtimepath:prepend(lazypath)
+-- end
 
 -- Shorthand for require"plugins"..module
 local function configs(module)
@@ -26,15 +37,13 @@ require("lazy").setup({
 		build = ":TSUpdate",
 		config = configs("treesitter"),
 		dependencies = {
-			"windwp/nvim-ts-autotag",
-			"nvim-treesitter/nvim-treesitter-textobjects",
-			"JoosepAlviste/nvim-ts-context-commentstring",
-			-- "nvim-treesitter/playground",
+			{ "windwp/nvim-ts-autotag" },
+			{ "nvim-treesitter/nvim-treesitter-textobjects" },
+			{ "JoosepAlviste/nvim-ts-context-commentstring" },
+			{ "nvim-treesitter/playground" },
 		},
 	},
-	{
-		"JoosepAlviste/nvim-ts-context-commentstring",
-	},
+	{ "JoosepAlviste/nvim-ts-context-commentstring" },
 	{
 		"nvim-telescope/telescope.nvim",
 		branch = "0.1.x",
@@ -52,30 +61,37 @@ require("lazy").setup({
 		branch = "v3.x",
 		dependencies = {
 			-- LSP Support
-			"neovim/nvim-lspconfig",
-			{ "williamboman/mason.nvim", config = configs("mason") },
-			"williamboman/mason-lspconfig.nvim",
+			{ "neovim/nvim-lspconfig" },
+			{
+				"williamboman/mason.nvim",
+				config = configs("mason"),
+				cond = not vim.g.nix,
+			},
+			{
+				"williamboman/mason-lspconfig.nvim",
+				cond = not vim.g.nix,
+			},
 
 			-- Autocompletion
-			"hrsh7th/nvim-cmp",
-			"hrsh7th/cmp-buffer",
-			"hrsh7th/cmp-cmdline",
-			"hrsh7th/cmp-path",
-			"saadparwaiz1/cmp_luasnip",
-			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/cmp-nvim-lua",
-			"jc-doyle/cmp-pandoc-references",
-			"f3fora/cmp-spell",
-			"kdheepak/cmp-latex-symbols",
-			{ "tzachar/cmp-tabnine", build = "./install.sh" },
-			"lukas-reineke/cmp-under-comparator",
+			{ "hrsh7th/nvim-cmp" },
+			{ "hrsh7th/cmp-buffer" },
+			{ "hrsh7th/cmp-cmdline" },
+			{ "hrsh7th/cmp-path" },
+			{ "saadparwaiz1/cmp_luasnip" },
+			{ "hrsh7th/cmp-nvim-lsp" },
+			{ "hrsh7th/cmp-nvim-lua" },
+			{ "jc-doyle/cmp-pandoc-references" },
+			{ "f3fora/cmp-spell" },
+			{ "kdheepak/cmp-latex-symbols" },
+			-- { "tzachar/cmp-tabnine", build = "nix-shell -p unzip --run './install.sh'" },
+			{ "lukas-reineke/cmp-under-comparator" },
 
 			-- Snippets
-			"L3MON4D3/LuaSnip",
-			"rafamadriz/friendly-snippets",
+			{ "L3MON4D3/LuaSnip" },
+			{ "rafamadriz/friendly-snippets" },
 
 			-- Customization
-			"onsails/lspkind-nvim",
+			{ "onsails/lspkind-nvim" },
 			{
 				"SmiteshP/nvim-navic",
 				config = configs("navic"),
@@ -107,35 +123,38 @@ require("lazy").setup({
 		"nvim-neo-tree/neo-tree.nvim",
 		branch = "v3.x",
 		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-tree/nvim-web-devicons",
-			"MunifTanjim/nui.nvim",
+			{ "nvim-lua/plenary.nvim" },
+			{ "nvim-tree/nvim-web-devicons" },
+			{ "MunifTanjim/nui.nvim" },
 			{ "s1n7ax/nvim-window-picker", config = configs("window-picker") },
 		},
 	}, -- Explorer
 	{
 		"antosha417/nvim-lsp-file-operations",
 		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-neo-tree/neo-tree.nvim",
+			{ "nvim-lua/plenary.nvim" },
+			{ "nvim-neo-tree/neo-tree.nvim" },
 		},
 	},
 	{
 		"mfussenegger/nvim-dap",
 		config = configs("dap"),
 		dependencies = {
-			"mxsdev/nvim-dap-vscode-js", -- JS DAP
+			{ "mxsdev/nvim-dap-vscode-js" }, -- JS DAP
 			{
 				"microsoft/vscode-js-debug",
 				build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
 			}, -- JS DAP adapter
-			"mfussenegger/nvim-dap-python", -- Python DAP
-			"theHamsta/nvim-dap-virtual-text", -- DAP virtual text
+			{ "mfussenegger/nvim-dap-python" }, -- Python DAP
+			{ "theHamsta/nvim-dap-virtual-text" }, -- DAP virtual text
 		},
 	}, -- Debug Adapter protocol
 	{
 		"rcarriga/nvim-dap-ui",
-		dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
+		dependencies = {
+			{ "mfussenegger/nvim-dap" },
+			{ "nvim-neotest/nvim-nio" },
+		},
 	},
 	{
 		"nvim-telescope/telescope-dap.nvim",
@@ -146,7 +165,9 @@ require("lazy").setup({
 	}, -- Telescope DAP plugin
 	{
 		"WhoIsSethDaniel/toggle-lsp-diagnostics.nvim",
-		dependencies = { "neovim/nvim-lspconfig" },
+		dependencies = {
+			{ "neovim/nvim-lspconfig" },
+		},
 	},
 	{
 		"stevearc/conform.nvim",
@@ -162,15 +183,27 @@ require("lazy").setup({
 	{ "vim-pandoc/vim-pandoc", lazy = false }, -- Pandoc integration
 	{
 		"vim-pandoc/vim-rmarkdown",
-		dependencies = { "vim-pandoc/vim-pandoc", "vim-pandoc-syntax" },
+		dependencies = {
+			{ "vim-pandoc/vim-pandoc" },
+			{ "vim-pandoc-syntax" },
+		},
 		lazy = false,
 	}, -- Pandoc filetype
-	{
-		"simrat39/rust-tools.nvim",
-		config = configs("rust-tools"),
-		dependencies = { "VonHeikemen/lsp-zero.nvim" },
-	},
+	-- {
+	-- 	"simrat39/rust-tools.nvim",
+	-- 	config = configs("rust-tools"),
+	-- 	dependencies = { { "VonHeikemen/lsp-zero.nvim" } },
+	-- }, TODO: replace with rustacean.nvim
 	{ "luckasRanarison/tree-sitter-hypr" },
+	{
+		"pmizio/typescript-tools.nvim",
+		dependencies = { { "nvim-lua/plenary.nvim" }, { "neovim/nvim-lspconfig" } },
+		config = function()
+			require("typescript-tools").setup({
+				on_attach = require("plugins/lsp").on_attach,
+			})
+		end,
+	},
 
 	--- Git
 	{ "tpope/vim-fugitive" }, -- Git integration
@@ -179,8 +212,8 @@ require("lazy").setup({
 	--- Syntax
 	{ "vim-pandoc/vim-pandoc-syntax", lazy = false }, -- Pandoc syntax
 	{ "lervag/vimtex", lazy = false }, -- LaTeX syntax
-	{ "PProvost/vim-markdown-jekyll", lazy = false }, -- YAML front matter highlighting
 	{ "elkowar/yuck.vim", lazy = false },
+	{ "tjvr/vim-nearley", lazy = false },
 
 	--- Shortcuts
 	{ "kylechui/nvim-surround", config = true }, -- Edit surrounding text
@@ -192,13 +225,10 @@ require("lazy").setup({
 	{ "numToStr/Comment.nvim", config = configs("comment") }, -- Comment out text
 	{ "goolord/alpha-nvim", config = configs("greeter") }, -- Start screen
 	{ "Shatur/neovim-session-manager", config = configs("sessions") }, -- Sessions
-	{ "folke/twilight.nvim" },
 	{ "folke/which-key.nvim", config = configs("which-key") },
 	{ "tpope/vim-repeat" }, -- Repeat
-	{ "folke/zen-mode.nvim", config = configs("zen-mode") }, -- Zen mode
 	{ "windwp/nvim-autopairs", event = "InsertEnter", config = configs("autopairs") }, -- Auto pair brackets
-	{ "RRethy/nvim-treesitter-endwise" },
-	{ "godlygeek/tabular" }, -- Align text easily
+	{ "RRethy/nvim-treesitter-endwise" }, -- Endwise
 	{ "Pocco81/auto-save.nvim", config = configs("autosave") }, -- Auto save
 
 	--- Look & Feel
@@ -219,7 +249,9 @@ require("lazy").setup({
 	{
 		"nvim-lualine/lualine.nvim",
 		config = configs("lualine"),
-		dependencies = { "nvim-tree/nvim-web-devicons" },
+		dependencies = {
+			{ "nvim-tree/nvim-web-devicons" },
+		},
 	}, -- Statusline
 
 	--- Tools

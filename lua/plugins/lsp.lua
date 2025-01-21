@@ -56,11 +56,25 @@ end
 
 lsp.on_attach(on_attach)
 
-require("mason-lspconfig").setup({
-	handlers = {
-		lsp.default_setup,
-	},
-})
+if not vim.g.nix then
+	require("mason-lspconfig").setup({
+		handlers = {
+			lsp.default_setup,
+			["tsserver"] = function() end, -- Use typescript-tools.nvim instead
+			["rust_analyzer"] = function() end, -- Use rust-tools.nvim instead
+		},
+	})
+end
+
+local ensure_setup = {
+	"pyright",
+	"vimls",
+	"ccls",
+	"svelte",
+	"tailwindcss",
+	"ltex",
+	"gopls",
+}
 
 local function default_lsp_setup(server)
 	lspconfig[server].setup({
@@ -69,55 +83,57 @@ local function default_lsp_setup(server)
 	})
 end
 
+for _, server_name in ipairs(ensure_setup) do
+	default_lsp_setup(server_name)
+end
+
 lspconfig.lua_ls.setup(lsp.nvim_lua_ls())
 default_lsp_setup("ccls")
-default_lsp_setup("nil_ls")
--- default_lsp_setup"nixd"
 
--- local user = os.getenv("USER")
--- local hostname = vim.fn.hostname()
--- lspconfig.nixd.setup({
--- 	on_attach = on_attach,
--- 	capabilities = lsp_capabilities,
--- 	cmd = { "nixd" },
--- 	settings = {
--- 		nixd = {
--- 			nixpkgs = {
--- 				expr = "import <nixpkgs> { }",
--- 			},
--- 			options = {
--- 				nixos = {
--- 					expr = '(builtins.getFlake "/home/mihranmashhud/nixos").nixosConfigurations.'
--- 						.. hostname
--- 						.. ".options",
--- 				},
--- 				home_manager = {
--- 					expr = '(builtins.getFlake "/home/mihranmashhud/nixos").homeConfigurations."'
--- 						.. user
--- 						.. "@"
--- 						.. hostname
--- 						.. '".options',
--- 				},
--- 			},
--- 			diagnostic = {
--- 				suppress = {
--- 					"sema-escaping-with",
--- 				},
--- 			},
--- 		},
--- 	},
--- })
+local user = os.getenv("USER")
+local hostname = vim.fn.hostname()
+local nixos_expr = '(builtins.getFlake "/home/mihranmashhud/nixos").nixosConfigurations.' .. hostname .. ".options"
+local hm_expr = '(builtins.getFlake "/home/mihranmashhud/nixos").homeConfigurations."'
+	.. user
+	.. "@"
+	.. hostname
+	.. '".options'
+lspconfig.nixd.setup({
+	on_attach = on_attach,
+	capabilities = lsp_capabilities,
+	cmd = { "nixd" },
+	settings = {
+		nixd = {
+			nixpkgs = {
+				expr = "import <nixpkgs> { }",
+			},
+			options = {
+				nixos = {
+					expr = nixos_expr,
+				},
+				home_manager = {
+					expr = hm_expr,
+				},
+			},
+			diagnostic = {
+				suppress = {
+					"sema-escaping-with",
+				},
+			},
+		},
+	},
+})
 
 -- Completion
-local tabnine = require("cmp_tabnine.config")
+-- local tabnine = require("cmp_tabnine.config")
 
-tabnine:setup({
-	max_lines = 1000,
-	max_num_results = 20,
-	sort = true,
-	run_on_every_keystroke = true,
-	snippet_placeholder = "..",
-})
+-- tabnine:setup({
+-- 	max_lines = 1000,
+-- 	max_num_results = 20,
+-- 	sort = true,
+-- 	run_on_every_keystroke = true,
+-- 	snippet_placeholder = "..",
+-- })
 
 local has_words_before = function()
 	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -162,7 +178,7 @@ cmp.setup(lsp.defaults.cmp_config({
 		{ name = "nvim_lua" },
 		{ name = "luasnip" },
 		{ name = "buffer", keyword_length = 5 },
-		{ name = "cmp_tabnine" },
+		-- { name = "cmp_tabnine" },
 		{ name = "path" },
 		{ name = "spell", keyword_length = 3 },
 		{ name = "calc" },

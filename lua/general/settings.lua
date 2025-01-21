@@ -19,7 +19,6 @@ vim.opt.incsearch = true -- Highlight search
 vim.opt.iskeyword = vim.opt.iskeyword + { "-" } -- Dash seperated words are text objects
 vim.opt.laststatus = 2 -- Show me that beautiful statusline
 vim.opt.linespace = 1 --
-vim.opt.modelines = 1 --
 vim.opt.modelines = 1 -- For custom commands in the buffer
 vim.opt.mouse = "a" -- Hey sometimes it is more intuitive
 vim.opt.number = true -- Show the current line number
